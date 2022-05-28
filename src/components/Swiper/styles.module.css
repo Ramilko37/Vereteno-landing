@@ -1,0 +1,71 @@
+.swiperContainer {
+    width: 100%;
+    margin-bottom: 54px;
+}
+
+.swiperWrapper {
+    padding-top: 70px;
+    border-radius: 8px;
+}
+
+.columnWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 234px;
+}
+
+.swiperSlide {
+    background-size: cover;
+    width: 163px;
+    height: 184px;
+    border-radius: 8px;
+    position: relative;
+    filter: drop-shadow(0px 0px 28px rgba(6, 15, 33, 0.6));
+}
+
+.swiperImage {
+   border-radius: 4px;
+
+}
+
+.swiperTitle {
+    font-family: ViaodaLibre,serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    font-feature-settings: 'ordn' on;
+    color: #414141;
+    margin: 0;
+    margin-bottom: -54px;
+}
+
+.swiperName {
+    font-family: 'Measure', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 100%;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 0px 3.52941px 7.05882px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    left: 0;
+    bottom: 70px;
+}
+
+.swiperPrice {
+    font-family: 'Acherus Feral', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 120%;
+    text-align: center;
+    color: #414141;
+    margin-top: 16px;
+    position: absolute;
+    left: 30px;
+    bottom: 20px;
+}
+

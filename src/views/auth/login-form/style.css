@@ -1,0 +1,137 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 0;
+    height: 400px;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 40px;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+    font-weight: 200;
+}
+
+form {
+    width: 358px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+
+form input[type="phone"] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    width: 248px;
+    height: 43px;
+    background: #FFFFFF;
+    border: 2px solid #CEA687;
+    border-radius: 8px;
+}
+
+
+/*form input[type="password"] {*/
+/*    display: block;*/
+/*    appearance: none;*/
+/*    outline: 0;*/
+/*    border: 1px solid rgba(255, 255, 255, 0.4);*/
+/*    background-color: rgba(255, 255, 255, 0.01);*/
+/*    width: 320px;*/
+/*    border-radius: 3px;*/
+/*    padding: 10px 15px;*/
+/*    margin: 0 auto 10px auto;*/
+/*    text-align: center;*/
+/*    font-size: 14px;*/
+/*    color: white;*/
+/*    transition-duration: 0.25s;*/
+/*    font-weight: 300;*/
+/*}*/
+form input[type="submit"] {
+    width: 358px;
+    height: 43px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    background: #CEA687;
+    border: none;
+    border-radius: 8px;
+    margin-top: 16px;
+    color: #FFFFFF;
+    display: block;
+}
+
+form input[type="text"] {
+    display: block;
+    appearance: none;
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.01);
+    width: 320px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    transition-duration: 0.25s;
+    font-weight: 300;
+}
+
+form input[type="text"]:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+form input[type="text"]:focus {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: white;
+}
+
+form input[type="text"]:-webkit-autofill {
+    background-color: rgba(89, 86, 86, 0.07);
+    color: white;
+}
+
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step-buttons button:disabled {
+    background-color: #85848450;
+}
+
+form input[type="checkbox"] {
+    display: none;
+}
+
+form input[type="checkbox"]:checked ~ label[for="skill"] {
+}
+form input[type="checkbox"] ~ label[for="skill"] {
+}
+
+form label {
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    width: 320px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.flexWrapper {
+    display: flex;
+    flex-direction: column;
+}
