@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
                            html,
@@ -6,17 +6,16 @@ export const GlobalStyle = createGlobalStyle`
                                margin: 0;
                                font-family: -apple-system, Acherus Feral, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
                                Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-                           }
-
-
-                           @font-face {
-                            font-family: "Acherus Feral", serif;
-                            src: local('Acherus Feral'), url("../fonts/AcherusFeral-Light.otf");
                            }
                            
 body {
-    padding: 0 1rem;
+    padding: 0;
+}  
+@media screen and (min-width: 768px) {
+  body {
+  max-width: 60%;
+   margin: 0 auto;
+  }
 }
 
 a {
@@ -29,15 +28,37 @@ a {
 }
 
 
-h1,h2,h3,h4,h5,h6,body {
+h1,h2,h4,h5,h6,body {
     font-family: 'Acherus Feral', serif;
 }
+                           
+                           h3 {
+                            font-family: 'Acherus Feral', serif;
+                            font-style: normal;
+                            font-weight: 300;
+                            font-size: 20px;
+                            line-height: 120%;
+                            color: #FFFFFF;
+                           }
 `
 
-const BasicLayout = ({ children }) => {
+
+
+const Header = styled.section`
+  width: 100%;
+  height: 40px;
+  border: 1px solid red;
+  display: flex;
+`
+
+
+
+
+const BasicLayout = ({ children }, props) => {
 return (
 <>
- <GlobalStyle />
+ <GlobalStyle  />
+ {props.header && <Header/>}
                {children}
 </>
 )
