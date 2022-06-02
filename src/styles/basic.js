@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
                            }
                            
 body {
-    padding: 0;
+    padding: 0 1rem;
 }  
 @media screen and (min-width: 768px) {
   body {

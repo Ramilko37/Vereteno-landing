@@ -5,4 +5,4 @@ const createMagic = (key) => {
     return typeof window != "undefined" && new Magic(key);
 };
 
-export const magic = createMagic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
+export const magic = createMagic(process.env.REACT_APP_PK_KEY);

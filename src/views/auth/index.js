@@ -2,9 +2,8 @@ import React, {useContext, useState} from "react";
 import styled from 'styled-components';
 import {useForm} from "react-hook-form";
 import DropDown from "../../components/DropDown";
+import { firebase, auth } from '../../firebase';
 import {Checkbox} from "../../components/CheckBox";
-import Signup from "../../components/SignUp/SignUp";
-
 
 // interface IProps {
 //     handleLoggedIn: (e: boolean) => void
@@ -83,6 +82,7 @@ const SubmitButton = styled.input`
   color: #FFFFFF;
   display: block;
   appearance: none;
+  justify-content: center;
   //:hover {
   //  border: 5px solid wheat;
   //  transition-duration: 1s;
@@ -100,6 +100,10 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [phoneHandled, setPhoneHandled] = useState(false);
     const [checked, setChecked] = useState(false);
+    const [number, setNumber] = useState("");
+    const [otp, setOtp] = useState('');
+    const [show, setShow] = useState(false);
+    const [final, setFinal] = useState('');
 
 
     const handleCheckboxChange = () => {
@@ -108,32 +112,60 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
     }
 
 
-    // const handleSignUp = (data, e) => {
-    //     e.preventDefault()
-    //    setPhoneHandled(!phoneHandled)
-    //     setPhoneHandled(!phoneHandled);
-    //     console.log(phoneHandled)
-    //     data.recaptcha = "1";
-    //     fetch('https://community.polyana-it.ru/api/auth/sign-in/', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //         .then(res => {
-    //             return res.json()
-    //         })
-    //         .then(json => {
-    //             console.log("json: ", json);
-    //             console.log('signUp')
-    //             setRegistered(true)
-    //             // setUsername(json.user.username)
-    //         })
-    //         .catch(errors => {
-    //             console.log(errors)
-    //         });
-    // };
+    const signIn = () => {
+
+        if (number === "" || number.length < 10) return;
+
+        let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+        console.log('here')
+
+        auth.signInWithPhoneNumber(number, verify).then((result) => {
+            console.log(verify)
+            console.log('auth event')
+            setFinal(result);
+            alert("code sent")
+            setShow(true);
+            setPhoneHandled(!phoneHandled)
+        })
+            .catch((err) => {
+                alert(err);
+            });
+    }
+
+    // Validate OTP
+    const ValidateOtp = () => {
+        if (otp === null || final === null)
+            return;
+        final.confirm(otp).then((result) => {
+            alert('HOORAY')
+        }).catch((err) => {
+            alert("Wrong code");
+        })
+    }
+
+
+
+    // data.recaptcha = "1";
+        // fetch('https://community.polyana-it.ru/api/auth/sign-in/', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        //     .then(res => {
+        //         return res.json()
+        //     })
+        //     .then(json => {
+        //         console.log("json: ", json);
+        //         console.log('signUp')
+        //         setRegistered(true)
+        //         // setUsername(json.user.username)
+        //     })
+        //     .catch(errors => {
+        //         console.log(errors)
+        //     });
+
     //
     // const handleSignIn = (data) => {
     //     data.recaptcha = "1";
@@ -155,77 +187,59 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
     //         });
     // };
 
-    console.log(registered)
-    console.log(errors)
 
 
     return (
 
 
-        // <AuthWrapper>
-        //     {
-        //         !phoneHandled
-        //             ?
-        //
-        //                 <form style={{display: phoneHandled ? 'none' : 'flex'}}
-        //                       className="sign-up"
-        //                       >
-        //                     <div className='flexWrapper'>
-        //                         <FlexWrapper>
-        //                             <DropDown codeValue={codeValue} setValue={setValue}
-        //                             />
-        //                             <PhoneInput
-        //                                 type="phone"
-        //                                 placeholder="phone"
-        //                                 {...register("phone_number", {
-        //                                     required: true,
-        //                                     pattern: {
-        //                                         value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/i,
-        //                                         message: 'CPF inválido',
-        //                                     }
-        //                                 })
-        //                                 } />
-        //                         </FlexWrapper>
-        //                         <SubmitButton
-        //                             disabled={!checked}
-        //                             type="submit"
-        //
-        //                         />
-        //                     </div>
-        //                 </form>
-        //                 :
-        //                 <form className="sign-up" onSubmit={() => console.log('COde')}
-        //                       style={{display: !phoneHandled ? 'none' : 'block'}}
-        //                 >
-        //                     <CodeInput
-        //                         id="code"
-        //                         placeholder="Код"
-        //                         maxlength='4'
-        //                         {...register("code", {
-        //                             required: "required",
-        //                         })}
-        //                         type="password"
-        //                     />
-        //                     <SubmitButton
-        //                         disabled={!checked}
-        //                         type="submit"
-        //                     />
-        //                 </form>
-        //     }
-        //
-        //                 <FlexWrapper onClick={handleCheckboxChange}>
-        //                     <Checkbox checked={checked} onChange={() => console.log('Handled')}/>
-        //                     <TextContent>При входе в аккаунт, я соглашаюсь с<LinkSpan href='#'>политикой
-        //                         конфиденциальности</LinkSpan></TextContent>
-        //                 </FlexWrapper>
-        //
-        //
-        // </AuthWrapper>
+        <AuthWrapper>
+            {
+                !phoneHandled
+                    ?
+
+                        <div style={{display: phoneHandled ? 'none' : 'flex'}}
+                              className="sign-up"
+                              >
+                            <div className='flexWrapper'>
+                                <FlexWrapper>
+                                    <DropDown codeValue={codeValue} setValue={setValue}
+                                    />
+                                    <PhoneInput
+                                        type="phone"
+                                        value={number} onChange={(e) => {
+                                        setNumber(e.target.value) }}
+                                        placeholder="phone number"
+                                    />
+                                </FlexWrapper>
+                                <SubmitButton
+                                    disabled={!checked}
+                                    value={'Отправить'}
+                                    onClick={signIn}
+                                />
+                                <div id="recaptcha-container"></div>
+                            </div>
+                        </div>
+                        :
+                        <div className="sign-up" onSubmit={() => console.log('COde')}
+                              style={{display: !phoneHandled ? 'none' : 'block'}}
+                        >
+                            <input type="text" placeholder={"Enter your OTP"}
+                                   onChange={(e) => { setOtp(e.target.value) }}></input>
+                            <SubmitButton
+                                disabled={!checked}
+                                onClick={ValidateOtp}
+                            />
+                        </div>
+            }
+
+                        <FlexWrapper onClick={handleCheckboxChange}>
+                            <Checkbox checked={checked} onChange={() => console.log('Handled')}/>
+                            <TextContent>При входе в аккаунт, я соглашаюсь с<LinkSpan href='#'>политикой
+                                конфиденциальности</LinkSpan></TextContent>
+                        </FlexWrapper>
 
 
-
-
-        <Signup />
+        </AuthWrapper>
     )
 
             }
