@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import appStore from "../../static/images/appStore.svg";
 import Auth from "../../views/auth";
 import playMarket from '../../static/images/playMarket.svg'
+import NewLogin from "../NewLogin";
 
 const Title = styled.h1`
   text-align: left;
@@ -35,7 +36,7 @@ export default function Home() {
            <>
                 <Title>Войти или создать
                     профиль</Title>
-                <Auth />
+                <NewLogin />
                 {/*<FlexWrapper onClick={handleCheckboxChange}>*/}
                 {/*    <Checkbox checked={checked} onChange={() => console.log('Changed')}/>*/}
                 {/*    <TextContent>При входе в аккаунт, я соглашаюсь с<LinkSpan href='#' >политикой конфиденциальности</LinkSpan></TextContent>*/}

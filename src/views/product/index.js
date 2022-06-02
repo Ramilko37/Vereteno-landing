@@ -31,7 +31,7 @@ const fablesMock = [
 ]
 
 
-const Container = styled.section`
+const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -54,9 +54,9 @@ const CardImage = styled.div`
 
 function ProductCard() {
     return (
-        <Container>
+        <CardContainer>
             <CardImage img={image} />
-        </Container>
+        </CardContainer>
     );
 }
 

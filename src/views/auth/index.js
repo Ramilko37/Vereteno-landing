@@ -4,6 +4,10 @@ import {useForm} from "react-hook-form";
 import DropDown from "../../components/DropDown";
 import { firebase, auth } from '../../firebase';
 import {Checkbox} from "../../components/CheckBox";
+import { useNavigate } from "react-router-dom";
+import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
+import en from 'react-phone-number-input/locale/en.json';
+import 'react-phone-number-input/style.css';
 
 // interface IProps {
 //     handleLoggedIn: (e: boolean) => void
@@ -67,9 +71,9 @@ const CodeInput = styled.input`
   background: #FFFFFF;
   border: 2px solid #CEA687;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
 `
-const SubmitButton = styled.input`
+const SubmitButton = styled.button`
   width: 358px;
   height: 43px;
   font-weight: 700;
@@ -92,6 +96,8 @@ const SubmitButton = styled.input`
  }
 `
 
+
+
 const Auth = ({handleLoggedIn, codeValue, setValue}) => {
 
 
@@ -112,14 +118,26 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
     }
 
 
+
+    let navigate = useNavigate();
+
+    console.log(number)
+
+
     const signIn = () => {
 
         if (number === "" || number.length < 10) return;
 
-        let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+        let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            size: "invisible",
+            callback: function(response) {
+                signIn();
+            }
+        });
         console.log('here')
 
         auth.signInWithPhoneNumber(number, verify).then((result) => {
+            console.log(number)
             console.log(verify)
             console.log('auth event')
             setFinal(result);
@@ -141,6 +159,10 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
         }).catch((err) => {
             alert("Wrong code");
         })
+
+        // console.log('OKAY');
+        // navigate('/catalog');
+
     }
 
 
@@ -189,6 +211,8 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
 
 
 
+
+
     return (
 
 
@@ -200,22 +224,35 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
                         <div style={{display: phoneHandled ? 'none' : 'flex'}}
                               className="sign-up"
                               >
+
+
                             <div className='flexWrapper'>
                                 <FlexWrapper>
                                     <DropDown codeValue={codeValue} setValue={setValue}
                                     />
+                                    {/*<PhoneInput*/}
+                                    {/*    type="phone"*/}
+                                    {/*    value={number} onChange={(e) => {*/}
+                                    {/*    setNumber(e.target.value) }}*/}
+                                    {/*    placeholder="phone number"*/}
+                                    {/*/>*/}
                                     <PhoneInput
                                         type="phone"
-                                        value={number} onChange={(e) => {
-                                        setNumber(e.target.value) }}
-                                        placeholder="phone number"
-                                    />
+                                        placeholder="phone"
+                                        {...register("phone_number", {
+                                            required: true,
+                                            pattern: {
+                                                value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/i,
+                                                message: 'CPF inválido',
+                                            }
+                                        })
+                                        } />
                                 </FlexWrapper>
                                 <SubmitButton
                                     disabled={!checked}
                                     value={'Отправить'}
                                     onClick={signIn}
-                                />
+                                >Отправить</SubmitButton>
                                 <div id="recaptcha-container"></div>
                             </div>
                         </div>
@@ -223,12 +260,12 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
                         <div className="sign-up" onSubmit={() => console.log('COde')}
                               style={{display: !phoneHandled ? 'none' : 'block'}}
                         >
-                            <input type="text" placeholder={"Enter your OTP"}
-                                   onChange={(e) => { setOtp(e.target.value) }}></input>
+                            <CodeInput type="text" placeholder={"Enter your OTP"}
+                                   onChange={(e) => { setOtp(e.target.value) }}></CodeInput>
                             <SubmitButton
                                 disabled={!checked}
                                 onClick={ValidateOtp}
-                            />
+                            >Отправить</SubmitButton>
                         </div>
             }
 
