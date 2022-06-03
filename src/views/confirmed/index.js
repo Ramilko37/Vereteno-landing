@@ -4,14 +4,14 @@ import styled from 'styled-components';
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 166px 0 64px;
+  padding: 166px 1rem 64px;
   box-sizing: border-box;
   position: absolute;
   width: 100%;
 `
 
 const Title = styled.h3`
-  font-family: 'Acherus Feral';
+  font-family: 'Acherus Feral',sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
@@ -21,7 +21,7 @@ const Title = styled.h3`
 `
 
 const Text = styled.p`
-  font-family: 'Acherus Feral';
+  font-family: 'Acherus Feral',sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
@@ -41,6 +41,7 @@ const BackToAppBtn = styled.button`
   appearance: none;
   border: none;
   color: #FFFFFF;
+  font-family: "Acherus Feral", sans-serif;
 `
 
 function Confirmed(props) {

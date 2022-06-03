@@ -5,6 +5,9 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  font-family: "Acherus Feral", sans-serif;
 `
 
 const Title = styled.h3`

@@ -12,6 +12,7 @@ import {auth} from "../../firebase";
 import * as MainApi from "../../mainApi/mainApi";
 import { CurrentUserContext } from "../../context/currentUserContext";
 import NewLogin from "../NewLogin";
+import Register from "../Register";
 
 
 
@@ -30,7 +31,7 @@ export function App() {
     const [foundMovies, setFoundMovies] = useState([]);
     const [preloaderAuth, setPreloaderAuth] = useState(false);
 
-    // const navigate = useNavigate();
+    // let navigate = useNavigate();
     // const location = useLocation();
 
     // token check
@@ -52,47 +53,55 @@ export function App() {
         }
     }, []);
 
-    // РЕГИСТРАЦИЯ
+    // ЛОГИН
     function login(email, password) {
         setPreloaderAuth(true);
-        MainApi.authorize(email, password)
-            .then((result) => {
-                if (result.token) {
-                    localStorage.setItem("token", result.token);
-                    localStorage.setItem("loggedIn", true);
+        // MainApi.authorize(email, password)
+        //     .then((result) => {
+        //         if (result.token) {
+        //             localStorage.setItem("token", result.token);
+        //             localStorage.setItem("loggedIn", true);
+        //             setLoggedIn(true);
+        //             // navigate("/movies");
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         setErrorSignIn(true);
+        //         console.log(err);
+        //     })
+        //     .finally(() => {
+        //         setTimeout(() => {
+        //             setPreloaderAuth(false);
+        //         }, 300);
+        //     });
+
+        localStorage.getItem('TOKEN', '5555')
+        const token = '5555';
+        localStorage.setItem("loggedIn", token);
                     setLoggedIn(true);
-                    // navigate("/movies");
-                }
-            })
-            .catch((err) => {
-                setErrorSignIn(true);
-                console.log(err);
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setPreloaderAuth(false);
-                }, 300);
-            });
+        console.log(loggedIn);
+
     }
 
-    // ЛОГИН
+    // РЕГИСТРАЦИЯ
     function register(name, email, password) {
         setPreloaderAuth(true);
-        MainApi.register(name, email, password)
-            .then(() => {
-                login(email, password);
-            })
-            .catch((err) => {
-                if (err) {
-                    setErrorSignUp(true);
-                    console.log(err);
-                }
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setPreloaderAuth(false);
-                }, 300);
-            });
+        // MainApi.register(name, email, password)
+            // .then(() => {
+            //     login(email, password);
+            // })
+            localStorage.setItem('TOKEN', '5555');
+            // .catch((err) => {
+            //     if (err) {
+            //         setErrorSignUp(true);
+            //         console.log(err);
+            //     }
+            // })
+            // .finally(() => {
+            //     setTimeout(() => {
+            //         setPreloaderAuth(false);
+            //     }, 300);
+            // });
     }
 
     // ПОЛУЧИТЬ ИНФОРМАЦИЮ О ПОЛЬЗОВАТЕЛЕ
@@ -123,13 +132,14 @@ export function App() {
         <BasicLayout>
         <Router>
         <Routes>
-                    <Route exact path="/" element={!loggedIn ? <Home/> : <Catalog/>}/>
+                    <Route exact path="/" element={!loggedIn ? <Login/> : <Catalog/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
                     <Route exact path="/product" element={<ProductCard/>}/>
                     <Route exact path="/summary" element={<OrderSummary/>}/>
                     <Route exact path="/catalog" element={<Catalog/>}/>
 
-            <Route path='/signin' element={<NewLogin/>}/>
+            <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
+            <Route path='/signup' element={<Register onRegister={register} />}/>
         </Routes>
         </Router>
         </BasicLayout>
