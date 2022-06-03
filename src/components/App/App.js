@@ -13,10 +13,35 @@ import * as MainApi from "../../mainApi/mainApi";
 import { CurrentUserContext } from "../../context/currentUserContext";
 import NewLogin from "../NewLogin";
 import Register from "../Register";
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from, gql } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
+
+const errorLink = onError(({ graphqlErrors, networkError }) => {
+    if(graphqlErrors) {
+        graphqlErrors.map(({ message, location, path }) => {
+            alert(`Graphql Error ${message}`)
+        });
+    }
+})
+
+// const link = from([
+//     errorLink,
+//     new HttpLink({uri: "http://89.111.136.199:8080/v1/graphql"})
+// ])
+
+const myClient = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: "http://89.111.136.199:8080/v1/graphql",
+});
+
+
 
 
 
 export function App() {
+
+
+
     const [loggedIn, setLoggedIn] = useState(
         Boolean(localStorage.getItem("loggedIn")) || false
     );
@@ -127,7 +152,11 @@ export function App() {
 
 
 
+
+
+
     return (
+        <ApolloProvider client={myClient}>
         <CurrentUserContext.Provider value={currentUser}>
         <BasicLayout>
         <Router>
@@ -137,6 +166,15 @@ export function App() {
                     <Route exact path="/product" element={<ProductCard/>}/>
                     <Route exact path="/summary" element={<OrderSummary/>}/>
                     <Route exact path="/catalog" element={<Catalog/>}/>
+            {/*<Route exact path="/">*/}
+            {/*    <>*/}
+            {/*        <ul>*/}
+            {/*            {data.items.map((post) => (*/}
+            {/*                <li key={post.id}>{post.name}</li>*/}
+            {/*            ))}*/}
+            {/*        </ul>*/}
+            {/*    </>*/}
+            {/*</Route>*/}
 
             <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
             <Route path='/signup' element={<Register onRegister={register} />}/>
@@ -144,5 +182,6 @@ export function App() {
         </Router>
         </BasicLayout>
         </CurrentUserContext.Provider>
+        </ApolloProvider>
     )
 }

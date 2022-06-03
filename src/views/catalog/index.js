@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import posterImg from '../../static/images/posterImg.svg'
 import arrowRight from '../../static/images/arrow.svg'
 import profileIcon from '../../static/images/profileIcon.svg'
 import Categories from "../../components/Categories";
 import {SwiperContainer} from "../../components/Swiper";
+
+
 
 const CatalogContainer = styled.section`
   display: flex;
@@ -80,7 +82,12 @@ const ProfileIcon = styled.button`
 `
 
 
-function Catalog(props) {
+
+
+function Catalog() {
+
+
+
     return (
         <CatalogContainer>
             <ProfileHead>

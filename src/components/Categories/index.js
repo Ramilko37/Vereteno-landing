@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import ProductItem from "../ProductItem";
 import CategoriesButtons from "../CategoriesButtons";
+import {gql, useQuery} from "@apollo/client";
+
 
 
 
@@ -76,7 +78,34 @@ const products = [
         },
     ]
 
+
+const GET_GATEGORY = gql`
+  query MyQuery {
+  product {
+    description
+    id
+    img
+    is_free
+    name
+  }
+}
+`;
+
 function Categories() {
+
+    const {error, loading, data} = useQuery(GET_GATEGORY)
+    const [listOfProducts, setListOfProducts] = useState([]);
+
+
+    useEffect(() => {
+        if (data) {
+            setListOfProducts(data.product)
+        }
+    }, [data]);
+
+
+
+    console.log(data)
 
     return (
         <CategoriesContainer>
@@ -89,8 +118,8 @@ function Categories() {
             }
             </div>
             <CategoriesGrid>
-                    {products.map((product) => {
-                        return <ProductItem key={product.id} title={product.title} img={product.src} price={product.price}/>
+                    {listOfProducts.map((product) => {
+                        return <ProductItem key={product.id} title={product.name} img={product.img} price={product.name}/>
 
 
                     })}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import image from '../../static/images/fable-image.jpg';
 
 
+
 const fablesMock = [
     {
         title: 'Новые сказки',
@@ -144,7 +145,13 @@ const ChooseTarifButton = styled.button`
   margin: 93px auto 0;
 `
 
+
+
 function ProductCard() {
+
+
+
+
     return (
         <>
         <CardContainer>
@@ -160,7 +167,6 @@ function ProductCard() {
                     <ContentBullet>5 импринтингов</ContentBullet>
                 </div>
                     <ChooseTarifButton>Выберите тариф</ChooseTarifButton>
-
             </CardContent>
 
         </>
