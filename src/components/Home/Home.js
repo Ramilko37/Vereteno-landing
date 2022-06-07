@@ -1,9 +1,8 @@
 import React, {Component, useState} from "react";
-import styled from 'styled-components';
-import appStore from "../../static/images/appStore.svg";
-import Auth from "../../views/auth";
-import playMarket from '../../static/images/playMarket.svg'
+import styled from 'styled-components/macro';
+
 import NewLogin from "../NewLogin";
+import {ReactComponent as AppStore} from "../../static/images/appStore.svg";
 
 const Title = styled.h1`
   text-align: left;
@@ -25,10 +24,6 @@ const ButtonsWrapper = styled.div`
   margin-bottom: 64px;
 `
 
-const AppStore = styled.img`
-  margin-left: 10px;
-`
-
 export default function Home() {
 
     return (
@@ -42,8 +37,8 @@ export default function Home() {
                 {/*    <TextContent>При входе в аккаунт, я соглашаюсь с<LinkSpan href='#' >политикой конфиденциальности</LinkSpan></TextContent>*/}
                 {/*</FlexWrapper>*/}
                 <ButtonsWrapper>
-                    <img src={playMarket} onClick={() => console.log('Clicked')}/>
-                    <AppStore src={appStore} onClick={() => console.log('Clicked')}/>
+                    <AppStore onClick={() => console.log('Clicked')} />
+                    <AppStore  onClick={() => console.log('Clicked')}/>
                 </ButtonsWrapper>
             </>
 

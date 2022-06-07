@@ -1,10 +1,9 @@
 import React, {useContext, useState} from "react";
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {useForm} from "react-hook-form";
 import DropDown from "../../components/DropDown";
 import { firebase, auth } from '../../firebase';
 import {Checkbox} from "../../components/CheckBox";
-import { useNavigate } from "react-router-dom";
 import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
 import en from 'react-phone-number-input/locale/en.json';
 import 'react-phone-number-input/style.css';

@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import posterImg from '../../static/images/posterImg.svg'
 import arrowRight from '../../static/images/arrow.svg'
 import profileIcon from '../../static/images/profileIcon.svg'
 import Categories from "../../components/Categories";
 import {SwiperContainer} from "../../components/Swiper";
+import Footer from "../../components/Footer";
 
 
 
@@ -12,7 +13,6 @@ const CatalogContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 1rem;
   box-sizing: border-box;
 `
 
@@ -25,7 +25,7 @@ const Poster = styled.div`
 `
 
 const PosterTitle = styled.h3`
-  font-family: 'Acherus Feral', serif;
+  font-family: 'Acherus Feral', sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
@@ -37,6 +37,7 @@ const PosterTitle = styled.h3`
 `
 
 const PosterLink = styled.a`
+  font-family: 'Acherus Feral', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -83,7 +84,6 @@ const ProfileIcon = styled.button`
 
 
 
-
 function Catalog() {
 
 
@@ -103,9 +103,6 @@ function Catalog() {
                     <ArrowImage src={arrowRight}/>
                 </FlexWrapper>
             </Poster>
-
-
-
             <Categories/>
         </CatalogContainer>
     );

@@ -15,6 +15,7 @@ import NewLogin from "../NewLogin";
 import Register from "../Register";
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from, gql } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+import GetCourse from "../../views/getcourse";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
     if(graphqlErrors) {
@@ -178,6 +179,7 @@ export function App() {
 
             <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
             <Route path='/signup' element={<Register onRegister={register} />}/>
+            <Route path='/getcourse' element={<GetCourse/>}/>
         </Routes>
         </Router>
         </BasicLayout>

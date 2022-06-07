@@ -9015,6 +9015,13 @@
   dependencies:
     "htmlparser2" "^5.0.1"
 
+"postscribe@^2.0.8":
+  "integrity" "sha512-Sxt6pek38NKX85Vb/PbcritqVxsgPZQFLcuf4o0f7lXRb76jM0XP79SGwCBPRTuv+U2zqByQan8EzRjqquD73A=="
+  "resolved" "https://registry.npmjs.org/postscribe/-/postscribe-2.0.8.tgz"
+  "version" "2.0.8"
+  dependencies:
+    "prescribe" ">=1.1.2"
+
 "prelude-ls@^1.2.1":
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -9024,6 +9031,11 @@
   "integrity" "sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ="
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.1.2.tgz"
   "version" "1.1.2"
+
+"prescribe@>=1.1.2":
+  "integrity" "sha512-HEg0ElY5tmmCshST4tzl47+SirJO2cVo6j/+O4d6xIz+80ixNcN0GgPQsn76AgeTTIAQOrwq1rfoptubQuZ1Uw=="
+  "resolved" "https://registry.npmjs.org/prescribe/-/prescribe-1.1.3.tgz"
+  "version" "1.1.3"
 
 "prettier@2.2.1":
   "integrity" "sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q=="
@@ -9092,7 +9104,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@^15.7.2", "prop-types@^15.8.1", "prop-types@>=15":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -9283,6 +9295,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.1.0.tgz"
   "version" "18.1.0"
 
+"react-load-script@^0.0.6":
+  "integrity" "sha512-aRGxDGP9VoLxcsaYvKWIW+LRrMOzz2eEcubTS4NvQPPugjk2VvMhow0wWTkSl7RxookomD1MwcP4l5UStg5ShQ=="
+  "resolved" "https://registry.npmjs.org/react-load-script/-/react-load-script-0.0.6.tgz"
+  "version" "0.0.6"
+
 "react-phone-number-input@^3.2.2":
   "integrity" "sha512-SXlABfoS+Dt7eK1Taxe/UdnzanIYlZHQaMzDPoSDlS7Pm5eGmLttG9TZBc07/XyC0cADBXh+HQ6IRm6hb25dwg=="
   "resolved" "https://registry.npmjs.org/react-phone-number-input/-/react-phone-number-input-3.2.2.tgz"
@@ -9369,7 +9386,7 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16", "react@>= 16.8.0", "react@>=16.8":
+"react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16", "react@>= 16.8.0", "react@>=0.14.9", "react@>=16.8":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   "version" "18.1.0"

@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import Footer from "../components/Footer";
 
 export const GlobalStyle = createGlobalStyle`
                            html,
@@ -10,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
                            
 body {
     padding: 0;
+  
 }  
 @media screen and (min-width: 768px) {
   body {

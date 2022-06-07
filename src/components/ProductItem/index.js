@@ -1,26 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
-
-const Product = styled.div`
-    width: 171px;
-    height: 228px;
+const ItemContainer = styled.div`
     position: relative;
-    padding: 16px;
     box-sizing: border-box;
-    background-image: url(${props => props.img});
     background-size: cover;
-    border-radius: 24px;
     justify-content: center;
     display: flex;
     flex-direction: column;
-    
-      :first-child{
-    width: 100%;
-    height: 156px;
-        grid-column-start: 1;
-        grid-column-end: 3;
-  }
+    border: 1px solid red;
+`
+
+const ProductImg = styled.div`
+  width: 171px;
+  height: 228px;
+  box-sizing: border-box;
+  background-image: url(${props => props.img});
+  background-size: contain;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 `
 
 const ProductTitle = styled.h4`
@@ -34,31 +34,31 @@ const ProductTitle = styled.h4`
   font-feature-settings: 'ordn' on;
   color: #FFFFFF;
   text-shadow: 0px 3.52941px 7.05882px rgba(0, 0, 0, 0.15);
-  bottom: 0;
-  margin: 0 auto;
   justify-content: center;
+  font-feature-settings: 'ordn' on;
+  margin: 0;
+  top: 20px;
 `
 const ProductPrice = styled.span`
-  font-family: 'Acherus Feral', serif;
+  font-family: 'Acherus Feral', sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 120%;
   color: #414141;
-  bottom: -28px;
+  margin-top: 4px;
+  
 `
 
 
-function ProductItem({title, img, price}) {
-
+function ProductItem({title, img, price, onClick}) {
     return (
-
-        <Product img={img}>
-            <ProductTitle>{title}</ProductTitle>
+        <ItemContainer onClick={onClick}>
+            <ProductImg img={img}>
+                <ProductTitle>{title}</ProductTitle>
+            </ProductImg>
             <ProductPrice>{price}</ProductPrice>
-        </Product>
-
-
+        </ItemContainer>
     );
 }
 
