@@ -1,4 +1,4 @@
-/*
+
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
@@ -20,4 +20,4 @@ export let auth =  firebase.auth();
 export {firebase}
 
 
-*/
+
