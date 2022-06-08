@@ -7,8 +7,6 @@ import Confirmed from "../../views/confirmed";
 import ProductCard from "../../views/product";
 import OrderSummary from "../../views/orderSummary";
 import Login from "../Login/Login";
-import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "../../firebase";
 import * as MainApi from "../../mainApi/mainApi";
 import { CurrentUserContext } from "../../context/currentUserContext";
 import NewLogin from "../NewLogin";

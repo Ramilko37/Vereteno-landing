@@ -118,36 +118,35 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
 
 
 
-    let navigate = useNavigate();
 
     console.log(number)
 
 
-    const signIn = () => {
-
-        if (number === "" || number.length < 10) return;
-
-        let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-            size: "invisible",
-            callback: function(response) {
-                signIn();
-            }
-        });
-        console.log('here')
-
-        auth.signInWithPhoneNumber(number, verify).then((result) => {
-            console.log(number)
-            console.log(verify)
-            console.log('auth event')
-            setFinal(result);
-            alert("code sent")
-            setShow(true);
-            setPhoneHandled(!phoneHandled)
-        })
-            .catch((err) => {
-                alert(err);
-            });
-    }
+    // const signIn = () => {
+    //
+    //     if (number === "" || number.length < 10) return;
+    //
+    //     let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    //         size: "invisible",
+    //         callback: function(response) {
+    //             signIn();
+    //         }
+    //     });
+    //     console.log('here')
+    //
+    //     auth.signInWithPhoneNumber(number, verify).then((result) => {
+    //         console.log(number)
+    //         console.log(verify)
+    //         console.log('auth event')
+    //         setFinal(result);
+    //         alert("code sent")
+    //         setShow(true);
+    //         setPhoneHandled(!phoneHandled)
+    //     })
+    //         .catch((err) => {
+    //             alert(err);
+    //         });
+    // }
 
     // Validate OTP
     const ValidateOtp = () => {
@@ -250,7 +249,7 @@ const Auth = ({handleLoggedIn, codeValue, setValue}) => {
                                 <SubmitButton
                                     disabled={!checked}
                                     value={'Отправить'}
-                                    onClick={signIn}
+                                    onClick={() => console.log('SignIn')}
                                 >Отправить</SubmitButton>
                                 <div id="recaptcha-container"></div>
                             </div>
