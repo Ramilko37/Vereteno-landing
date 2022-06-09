@@ -13,7 +13,10 @@ const CategoriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 300px;
+  @media (min-width: 768px) {
+    width: 100%;
+    justify-self: left;
+  }
 `
 
 const CategoriesTitle = styled.h2`
@@ -28,6 +31,13 @@ const CategoriesTitle = styled.h2`
   color: #414141;
   font-family: "ViaodaLibre", serif;
   margin-left: 16px;
+  @media (min-width: 768px) {
+    font-size: 64px;
+    line-height: 90px;
+    letter-spacing: 0.02em;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
 `
 
 const CategoriesGrid = styled.div`
@@ -37,10 +47,16 @@ const CategoriesGrid = styled.div`
   grid-template-columns: repeat(2,171px);
   grid-template-rows: repeat(2,288px);
   gap: 24px 16px;
+  @media (min-width: 768px) {
+    margin: 0;
+  }
 `
 const CaregoriesBtnsWrapper = styled.div`
   width: 358px;
   margin: 0 auto;
+  @media (min-width: 768px) {
+    margin: 0;
+  }
 `
 
 const CategoryButton = styled.button`
@@ -65,6 +81,10 @@ const PremiumProduct = styled.div`
   height: 188px;
   border: 1px solid red;
   margin: 0 auto 68px;
+  @media (min-width: 768px) {
+    margin: 0;
+    margin-bottom: 50px;
+  }
 `
 
 const ProductImg = styled.div`

@@ -14,6 +14,9 @@ const FooterContainer = styled.section`
   box-sizing: border-box;
   height: 400px;
   margin-top: 76px;
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `
 const FooterLink = styled.a`
   font-family: 'Acherus Feral', sans-serif;

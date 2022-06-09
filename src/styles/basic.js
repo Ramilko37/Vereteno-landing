@@ -11,11 +11,12 @@ export const GlobalStyle = createGlobalStyle`
                            
 body {
     padding: 0;
+ border: 1px solid red;
   
 }  
 @media screen and (min-width: 768px) {
   body {
-  max-width: 60%;
+  max-width: 82%;
    margin: 0 auto;
   }
 }
@@ -28,6 +29,21 @@ a {
 * {
     box-sizing: border-box;
 }
+
+                           .swiper-slide-active {
+                            background: #FFFFFF;
+
+                            border: 4px solid #CEA687;
+                            /* blue dark */
+
+                            box-shadow: 0px 0px 35px rgba(7, 11, 36, 0.3);
+                            border-radius: 16px;
+                           }
+
+                           .swiper-slide {
+                            width: 159px;
+                            height: 231px;
+                           }
 
 
 h1,h2,h4,h5,h6,body {

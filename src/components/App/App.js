@@ -14,6 +14,7 @@ import Register from "../Register";
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from, gql } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import GetCourse from "../../views/getcourse";
+import Tariff from "../../views/tariff";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
     if(graphqlErrors) {
@@ -32,7 +33,6 @@ const myClient = new ApolloClient({
     cache: new InMemoryCache(),
     uri: "http://89.111.136.199:8080/v1/graphql",
 });
-
 
 
 
@@ -110,22 +110,22 @@ export function App() {
     // РЕГИСТРАЦИЯ
     function register(name, email, password) {
         setPreloaderAuth(true);
-        // MainApi.register(name, email, password)
-            // .then(() => {
-            //     login(email, password);
-            // })
-            localStorage.setItem('TOKEN', '5555');
-            // .catch((err) => {
-            //     if (err) {
-            //         setErrorSignUp(true);
-            //         console.log(err);
-            //     }
-            // })
-            // .finally(() => {
-            //     setTimeout(() => {
-            //         setPreloaderAuth(false);
-            //     }, 300);
-            // });
+         MainApi.register(name, email, password)
+            .then(() => {
+                login(email, password);
+                localStorage.setItem('TOKEN', '5555')
+             })
+             .catch((err) => {
+                 if (err) {
+                     setErrorSignUp(true);
+                     console.log(err);
+                 }
+             })
+             .finally(() => {
+                 setTimeout(() => {
+                     setPreloaderAuth(false);
+                 }, 300);
+             });
     }
 
     // ПОЛУЧИТЬ ИНФОРМАЦИЮ О ПОЛЬЗОВАТЕЛЕ
@@ -160,11 +160,12 @@ export function App() {
         <BasicLayout>
         <Router>
         <Routes>
-                    <Route exact path="/" element={!loggedIn ? <Login/> : <Catalog/> }/>
+                    <Route exact path="/" element={!loggedIn ? <Login onLogin={login} onRegister={register}/> : <Catalog/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
                     <Route exact path="/product" element={<ProductCard/>}/>
                     <Route exact path="/summary" element={<OrderSummary/>}/>
                     <Route exact path="/catalog" element={<Catalog/>}/>
+                     <Route exact path="tariff" element={<Tariff/>}/>
             {/*<Route exact path="/">*/}
             {/*    <>*/}
             {/*        <ul>*/}

@@ -47,7 +47,6 @@ const ProductPrice = styled.span`
   line-height: 120%;
   color: #414141;
   margin-top: 4px;
-  
 `
 
 

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro'
-
-
+import styles from './styles.module.css'
+import {introspectionFromSchema} from "graphql";
+import {buildTimeValue} from "@testing-library/user-event/dist/utils";
+import * as MainApi from "../../mainApi/mainApi";
 
 const FlexWrapper = styled.div`
   width: 100vw;
@@ -24,13 +26,25 @@ function GetCourse(props) {
 
 
 
+const iframe = document.body.getElementsByTagName("iframe")
+const border = document.getElementsByName('submitButton')
+    const iWindow = iframe.contentWindow;
+
+    console.log(iWindow)
+
+    const body = document.body;
+
+body.classList.add(styles.body)
+
+
+
 
         return (
             <FlexWrapper>
 
 
 
-                <iframe style={{ width:'100%', height:'100%' }} id='be2482293570ad3bec7a994918173b0d31b260c0'
+                <iframe className={styles.iframe} id='be2482293570ad3bec7a994918173b0d31b260c0'
                         src={IFRAME_URL}></iframe>
             </FlexWrapper>
         )

@@ -2,6 +2,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import styles from './styles.module.css';
 import ProductItem from "../ProductItem";
+import SwiperItem from "../SwiperProduct";
+import styled from "styled-components/macro";
+
+const SwiperPagination = styled.div`
+  position: absolute;
+  text-align: center;
+  transition: .3s opacity;
+  transform: translate(0);
+  z-index: 10;
+`
 
 
 const fablesMock = [
@@ -31,28 +41,29 @@ const fablesMock = [
     },
 ]
 
-export const SwiperContainer = () => {
+export const SwiperContainer = (visibility) => {
     return (
         <div className={styles.swiperContainer}>
-            <h4 className={styles.swiperTitle}>{fablesMock[0].title}</h4>
+
         <Swiper
             spaceBetween={16}
-            slidesPerView={3}
+            slidesPerView={"auto"}
             className={styles.swiperWrapper}
             touchEventsTarget={"container"}
+            pagination={true}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
             breakpoints={{
                 // when window width is >= 640px
-                389: {
-                    width: 374,
-                    slidesPerView: 2,
-                },
-                // when window width is >= 768px
-                768: {
-                    width: 768,
-                    slidesPerView: 3,
-                },
+                // 389: {
+                //     width: 374,
+                //     slidesPerView: 2,
+                // },
+                // // when window width is >= 768px
+                // 768: {
+                //     width: 768,
+                //     slidesPerView: 3,
+                // },
             }}
         >
             {fablesMock.map(fable => {
@@ -63,9 +74,12 @@ export const SwiperContainer = () => {
                     {/*    <span className={styles.swiperPrice}>{fable.price}</span>*/}
                     {/*</div>*/}
 
-                    <ProductItem price={fable.price} title={fable.title} img={fable.image}  />
+                    <SwiperItem visibility={visibility} />
+
                 </SwiperSlide>
+
             })}
+            <SwiperPagination/>
         </Swiper>
         </div>
     );

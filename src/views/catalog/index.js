@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/macro';
 import posterImg from '../../static/images/posterImg.svg'
+import posterImgBig from '../../static/images/PosterBg.jpg'
 import arrowRight from '../../static/images/arrow.svg'
 import profileIcon from '../../static/images/profileIcon.svg'
 import Categories from "../../components/Categories";
-import {SwiperContainer} from "../../components/Swiper";
-import Footer from "../../components/Footer";
+
 
 
 
@@ -22,6 +22,15 @@ const Poster = styled.div`
   margin: 0 auto;
   background-image: url(${posterImg});
   box-sizing: border-box;
+  
+  @media (min-width: 768px) {
+    width: 100%;
+    height: 272px;
+    background-image: url(${posterImgBig});
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 24px;
+  }
 `
 
 const PosterTitle = styled.h3`

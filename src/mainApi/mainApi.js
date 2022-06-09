@@ -1,4 +1,4 @@
-import { BASE_URL, URL_NOMOREPATIES } from "./constants";
+import {API_URL, BASE_URL} from "./constants";
 
 const checkAnswerCorrectness = (response) => {
     if (response.ok) {
@@ -8,14 +8,14 @@ const checkAnswerCorrectness = (response) => {
     return Promise.reject(new Error(`Ошибка ${response.status}`));
 };
 
-export const register = (name, email, password) => {
-    return fetch(`${BASE_URL}/signup`, {
+export const register = () => {
+    return fetch(`${API_URL}/users/signup-simple`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({}),
     }).then((response) => checkAnswerCorrectness(response));
 };
 
@@ -51,31 +51,31 @@ export const getSaveMovies = () =>
         },
     }).then((response) => checkAnswerCorrectness(response));
 
-export const saveMovie = (data) => {
-    const urlImg = `${URL_NOMOREPATIES}` + data.image?.url;
-    return fetch(`${BASE_URL}/movies`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        credentials: "omit",
-        body: JSON.stringify({
-            country: data.country,
-            director: data.director,
-            duration: data.duration,
-            year: data.year,
-            description: data.description,
-            image: urlImg,
-            trailer: data.trailerLink,
-            thumbnail: urlImg,
-            movieId: data.id,
-            nameRU: data.nameRU,
-            nameEN: data.nameEN,
-        }),
-    }).then((response) => checkAnswerCorrectness(response));
-};
+// export const saveMovie = (data) => {
+//     const urlImg = `${URL_NOMOREPATIES}` + data.image?.url;
+//     return fetch(`${BASE_URL}/movies`, {
+//         method: "POST",
+//         headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//             authorization: `Bearer ${localStorage.getItem("token")}`,
+//         },
+//         credentials: "omit",
+//         body: JSON.stringify({
+//             country: data.country,
+//             director: data.director,
+//             duration: data.duration,
+//             year: data.year,
+//             description: data.description,
+//             image: urlImg,
+//             trailer: data.trailerLink,
+//             thumbnail: urlImg,
+//             movieId: data.id,
+//             nameRU: data.nameRU,
+//             nameEN: data.nameEN,
+//         }),
+//     }).then((response) => checkAnswerCorrectness(response));
+// };
 
 export const deleteSaveMovie = (movieId) => {
     console.log(movieId)

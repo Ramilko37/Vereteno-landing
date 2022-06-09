@@ -1,12 +1,51 @@
 import React, { useState } from 'react';
 import { firebase, auth } from '../../firebase';
+import DropDown from "../DropDown";
+import styled from 'styled-components/macro';
 
-const Login = () => {
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`
+
+const NumberInput = styled.input`
+  width: 248px;
+  height: 43px;
+  background: #FFFFFF;
+  border: 2px solid #CEA687;
+  border-radius: 8px;
+  padding: 12px 16px;
+`
+
+const Button = styled.button`
+  width: 358px;
+  height: 43px;
+  background: #CEA687;
+  border-radius: 8px;
+  appearance: none;
+  border: none;
+  margin: 16px auto 0;
+  color: #fff;
+  display: ${props => props.visible || 'none'};
+  font-family: 'Acherus Feral',sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+`
+
+
+const Login = (register, login) => {
     // Inputs
     const [mynumber, setnumber] = useState("");
     const [otp, setotp] = useState('');
-    const [show, setshow] = useState(false);
+    const [visible, setVisible] = useState(false);
     const [final, setfinal] = useState('');
+
+    const handleRegister = () => {
+        register();
+    }
 
     // Sent OTP
     const signin = () => {
@@ -17,7 +56,7 @@ const Login = () => {
         auth.signInWithPhoneNumber(mynumber, verify).then((result) => {
             setfinal(result);
             alert("code sent")
-            setshow(true);
+            setVisible(true);
         })
             .catch((err) => {
                 alert(err);
@@ -30,30 +69,33 @@ const Login = () => {
         if (otp === null || final === null)
             return;
         final.confirm(otp).then((result) => {
-            alert('HOORAY')
+            window.location.href="/catalog";
         }).catch((err) => {
             alert("Wrong code");
         })
     }
 
+
     return (
-        <div style={{ "marginTop": "200px" }}>
-            <center>
-                <div style={{ display: !show ? "block" : "none" }}>
-                    <input value={mynumber} onChange={(e) => {
+        <div style={{ "marginTop": "200px", display: 'flex', flexDirection: 'column' }}>
+            <Container>
+                    <DropDown />
+                    <NumberInput type='number' value={mynumber} onChange={(e) => {
                         setnumber(e.target.value) }}
-                           placeholder="phone number" />
+                           placeholder="(123) 456-78-90 " />
                     <br /><br />
                     <div id="recaptcha-container"></div>
-                    <button onClick={signin}>Send OTP</button>
-                </div>
-                <div style={{ display: show ? "block" : "none" }}>
-                    <input type="text" placeholder={"Enter your OTP"}
-                           onChange={(e) => { setotp(e.target.value) }}></input>
+
+                <div style={{ display: visible ? "block" : "none" }}>
+                    <NumberInput type="number" placeholder={"Enter your OTP"}
+                           onChange={(e) => { setotp(e.target.value + '7')}}></NumberInput>
                     <br /><br />
-                    <button onClick={ValidateOtp}>Verify</button>
                 </div>
-            </center>
+            </Container>
+
+            <Button visible={!visible} onClick={handleRegister}>Register</Button>
+
+            <Button visible={visible} onClick={ValidateOtp}>Verify</Button>
         </div>
     );
 }
