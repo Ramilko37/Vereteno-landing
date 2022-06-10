@@ -11,7 +11,6 @@ export const GlobalStyle = createGlobalStyle`
                            
 body {
     padding: 0;
- border: 1px solid red;
   
 }  
 @media screen and (min-width: 768px) {
@@ -32,11 +31,9 @@ a {
 
                            .swiper-slide-active {
                             background: #FFFFFF;
-
                             border: 4px solid #CEA687;
-                            /* blue dark */
-
                             box-shadow: 0px 0px 35px rgba(7, 11, 36, 0.3);
+                            transition: box-shadow 1s;
                             border-radius: 16px;
                            }
 

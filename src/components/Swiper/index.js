@@ -50,9 +50,12 @@ export const SwiperContainer = (visibility) => {
             slidesPerView={"auto"}
             className={styles.swiperWrapper}
             touchEventsTarget={"container"}
+            simulateTouch={true}
             pagination={true}
+            slideToClickedSlide={true}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
+
             breakpoints={{
                 // when window width is >= 640px
                 // 389: {

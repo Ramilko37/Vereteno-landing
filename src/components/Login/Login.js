@@ -7,6 +7,10 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  margin: 0 auto;
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `
 
 const NumberInput = styled.input`
@@ -16,6 +20,7 @@ const NumberInput = styled.input`
   border: 2px solid #CEA687;
   border-radius: 8px;
   padding: 12px 16px;
+  
 `
 
 const Button = styled.button`
@@ -33,6 +38,9 @@ const Button = styled.button`
   font-weight: 700;
   font-size: 16px;
   line-height: 120%;
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `
 
 

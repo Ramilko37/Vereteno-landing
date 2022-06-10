@@ -25,14 +25,13 @@ const Title = styled.h4`
 `
 
 const Subtitle = styled.h5`
-
+  font-family: "Acherus Feral", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
   line-height: 120%;
   color: #000000;
-  margin: 0;
-  margin-left: 16px;
+  margin: 0 0 26px 16px;
 `
 
 const DescriptionTitle = styled.h6`
