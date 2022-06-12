@@ -1,8 +1,17 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-
-const client = new ApolloClient({
-    uri: "http://89.111.136.199:8080/v1/graphql",
-    cache: new InMemoryCache(),
-});
-
-export default client;
+// import { gql, useQuery } from "@apollo/client";
+//
+//
+// const GET_PRODUCTS = gql`
+//   query MyQuery {
+//   vereteno_product {
+//     picture_preview
+//     id
+//     picture
+//     product_type_id
+//     title
+//   }
+// }
+// `;
+//
+//
+// export default GET_PRODUCTS;

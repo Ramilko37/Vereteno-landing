@@ -45,10 +45,12 @@ const CategoriesGrid = styled.div`
   width: 358px;
   display: grid;
   grid-template-columns: repeat(2,171px);
-  grid-template-rows: repeat(2,288px);
+  grid-auto-rows: 288px;
   gap: 24px 16px;
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1920px) {
+    width: 582px;
     margin: 0;
+    grid-template-columns: repeat(3,180px);
   }
 `
 const CaregoriesBtnsWrapper = styled.div`
@@ -88,10 +90,10 @@ const PremiumProduct = styled.div`
 `
 
 const ProductImg = styled.div`
-  width: 358px;
-  height: 156px;
+  
   background-image: url(${props => props.img});
   background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 24px;
   justify-content: start;
   display: flex;
@@ -126,34 +128,8 @@ const ProductPrice = styled.span`
   
 `
 
-const products = [
-    {
-        src: 'https://images.unsplash.com/photo-1596751303335-ca42b3ca50c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80',
-        title: 'Замок Любви',
-        id: 1,
-        price: '5999 ₽',
-    },
-    {
-        src: 'https://images.unsplash.com/photo-1596751303335-ca42b3ca50c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80',
-        title: 'Отель',
-        id: 2,
-        price: '5999 ₽',
-    },
-    {
-        src: 'https://images.unsplash.com/photo-1596751303335-ca42b3ca50c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80',
-        title: 'Замок Любви',
-        id: 3,
-        price: '5999 ₽',
-    },
-    {
-        src: 'https://images.unsplash.com/photo-1621466550398-ac8062907657?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80',
-        title: 'Отель',
-        id: 4,
-        price: '5999 ₽',
-    },
-    ]
 
-    //
+
     // const productsFromApi = axios({
     //     method: 'get',
     //     url: 'https://mariapi-env.eba-mrqymv5q.eu-central-1.elasticbeanstalk.com/api/v2/tail/',
@@ -179,54 +155,62 @@ const products = [
     ]
 
 
-const GET_GATEGORY = gql`
+const GET_PRODUCTS = gql`
   query MyQuery {
-  product {
-    description
+  vereteno_product {
+    picture_preview
     id
-    img
-    is_free
-    name
+    picture
+    product_type_id
+    title
+    description
   }
 }
 `;
 
+
+
 function Categories() {
 
-    const {error, loading, data} = useQuery(GET_GATEGORY)
-    const [listOfProducts, setListOfProducts] = useState(products);
-    const [activeProduct, setActiveProduct] = React.useState(
-        []
-    );
+    const {error, loading, data} = useQuery(GET_PRODUCTS);
+
+
+    const [listOfProducts, setListOfProducts] = useState(data.vereteno_product);
+
+    console.log(data.vereteno_product)
+
+    console.log(listOfProducts.vereteno_product)
 
 
     useEffect(() => {
-            setListOfProducts(products)
+            setListOfProducts(data)
             console.log('I render')
 
-    }, [data]);
+    }, []);
 
+    console.log(data)
 
-    function handleCategory(e) {
-
-        if (!data) {
-            console.log('No data')
-        }
-        {
-            console.log(products)
-           setActiveProduct(products.filter((item) => {
-               return item.title === e.target.name
-               }
-           ));
-            console.log(activeProduct)
-            setListOfProducts(activeProduct)
-
-        }
-    }
+    // function handleCategory(e) {
+    //
+    //     if (!data) {
+    //         console.log('No data')
+    //     }
+    //     {
+    //         console.log(data)
+    //        setActiveProduct(products.filter((item) => {
+    //            return item.title === e.target.name
+    //            }
+    //        ));
+    //         console.log(activeProduct)
+    //         setListOfProducts(activeProduct)
+    //
+    //     }
+    // }
 
     function productHandler() {
-        window.location.assign(`/product/${products.title}`)
+        window.location.assign(`/product`)
     }
+
 
 
 
@@ -238,19 +222,19 @@ function Categories() {
             <CaregoriesBtnsWrapper style={{ display: "flex", marginBottom: "40px"}}>
             {
                 categories.map(category => {
-                    return <CategoryButton key={category.name} onClick={() => handleCategory} name={category.name}>{category.name}</CategoryButton>
+                    return <CategoryButton key={category.name} name={category.name}>{category.name}</CategoryButton>
                 })
             }
             </CaregoriesBtnsWrapper>
-            <PremiumProduct>
-                <ProductImg img={products[0].src}>
-                    <ProductTitle>{products[0].title}</ProductTitle>
-                    <ProductPrice>{products[0].price}</ProductPrice>
-                </ProductImg>
-            </PremiumProduct>
+            {/*<PremiumProduct>*/}
+            {/*    <ProductImg img={products[0].src}>*/}
+            {/*        <ProductTitle>{products[0].title}</ProductTitle>*/}
+            {/*        <ProductPrice>{products[0].price}</ProductPrice>*/}
+            {/*    </ProductImg>*/}
+            {/*</PremiumProduct>*/}
             <CategoriesGrid>
-                    {listOfProducts.map((product) => {
-                        return <ProductItem onClick={productHandler} key={product.id} title={product.title} img={product.src} price={product.price}/>
+                    {listOfProducts.vereteno_product.map((product) => {
+                        return <ProductItem onClick={productHandler} key={product.id} title={product.title} img={product.picture_preview} price={product.price}/>
                     })}
             </CategoriesGrid>
 

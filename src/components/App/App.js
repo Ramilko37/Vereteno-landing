@@ -11,7 +11,8 @@ import * as MainApi from "../../mainApi/mainApi";
 import { CurrentUserContext } from "../../context/currentUserContext";
 import NewLogin from "../NewLogin";
 import Register from "../Register";
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from, gql } from "@apollo/client";
+import {ApolloClient, InMemoryCache, ApolloProvider, useQuery} from "@apollo/client";
+import GET_PRODUCTS from "../../mainApi/get-products-apollo";
 import { onError } from "@apollo/client/link/error";
 import GetCourse from "../../views/getcourse";
 import Tariff from "../../views/tariff";
@@ -144,13 +145,6 @@ export function App() {
                 });
         }
     }, [loggedIn, currentUser._id]);
-
-
-
-
-
-
-
 
 
 

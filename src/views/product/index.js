@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
 import image from '../../static/images/fable-image.jpg';
+import {Link} from "react-router-dom";
+import useWindowDimensions from "../../mainApi/getWIndowDimensions";
+import styles from "../../components/Swiper/styles.module.css";
+import {Swiper, SwiperSlide} from "swiper/react";
+import BigSwiperItem from "../../components/BigProductsSwiper";
 
 
 
@@ -149,25 +154,60 @@ const ChooseTarifButton = styled.button`
 
 function ProductCard() {
 
-
+    const {width, height} = useWindowDimensions();
 
 
     return (
         <>
-        <CardContainer>
-            <CardImage src={image} />
-        </CardContainer>
-            <CardContent>
+            {
+                (width < 1024)
+                    ?
+                    <>
+                <CardContainer>
+                    <CardImage src={image} />
+                </CardContainer>
+                <CardContent>
                 <ContentTitle>{fablesMock[0].title}</ContentTitle>
                 <ContentPrice>{`От ${fablesMock[0].price} P`}</ContentPrice>
                 <ContentDescription>{fablesMock[0].description}</ContentDescription>
                 <ContentDate>Старт сказки: 24.06.2022</ContentDate>
                 <div style={{display: "flex"}}>
-                    <ContentBullet>12 глав</ContentBullet>
-                    <ContentBullet>5 импринтингов</ContentBullet>
+                <ContentBullet>12 глав</ContentBullet>
+                <ContentBullet>5 импринтингов</ContentBullet>
                 </div>
-                    <ChooseTarifButton>Выберите тариф</ChooseTarifButton>
-            </CardContent>
+                <Link to='/tariff'><ChooseTarifButton>Выберите тариф</ChooseTarifButton></Link>
+                </CardContent>
+                        </>
+                :
+
+                    <>
+                        <Swiper
+                            spaceBetween={16}
+                            slidesPerView={2}
+                            className={styles.bigSwiperWrapper}
+                            touchEventsTarget={"container"}
+                            simulateTouch={true}
+                            pagination={true}
+                            slideToClickedSlide={true}
+                            onSlideChange={() => console.log('slide change')}
+                            onSwiper={(swiper) => console.log(swiper)}
+                        >
+                            {fablesMock.map(fable => {
+                                return <SwiperSlide key={fable.name} className={styles.bigSwiperSlide}>
+
+
+                                    <BigSwiperItem img={image} title={fablesMock[0].title} price={fablesMock[0].price} />
+
+
+
+                                </SwiperSlide>
+
+                            })}
+                        </Swiper>
+                    </>
+
+
+            }
 
         </>
     );
