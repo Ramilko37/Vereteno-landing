@@ -8,7 +8,6 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import BigSwiperItem from "../../components/BigProductsSwiper";
 
 
-
 const fablesMock = [
     {
         title: 'Новые сказки',

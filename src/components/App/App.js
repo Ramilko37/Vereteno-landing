@@ -1,6 +1,6 @@
 import React, {createContext, useEffect, useState} from "react";
 import Home from "../Home/Home";
-import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, Switch, useLocation, useNavigate} from 'react-router-dom'
 import Catalog from "../../views/catalog";
 import BasicLayout from "../../styles/basic";
 import Confirmed from "../../views/confirmed";
@@ -156,19 +156,13 @@ export function App() {
         <Routes>
                     <Route exact path="/" element={!loggedIn ? <Login onLogin={login} onRegister={register}/> : <Catalog/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
-                    <Route exact path="/product" element={<ProductCard/>}/>
-                    <Route exact path="/summary" element={<OrderSummary/>}/>
+                    <Switch>
                     <Route exact path="/catalog" element={<Catalog/>}/>
+                    <Route exact path="/product/:id" element={<ProductCard/>}/>
+                    </Switch>
+                    <Route exact path="/summary" element={<OrderSummary/>}/>
                      <Route exact path="tariff" element={<Tariff/>}/>
-            {/*<Route exact path="/">*/}
-            {/*    <>*/}
-            {/*        <ul>*/}
-            {/*            {data.items.map((post) => (*/}
-            {/*                <li key={post.id}>{post.name}</li>*/}
-            {/*            ))}*/}
-            {/*        </ul>*/}
-            {/*    </>*/}
-            {/*</Route>*/}
+
 
             <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
             <Route path='/signup' element={<Register onRegister={register} />}/>

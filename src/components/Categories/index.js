@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
 import ProductItem from "../ProductItem";
-import {gql, useQuery} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {Link} from "react-router-dom";
 import Footer from "../Footer";
+import GET_PRODUCTS, {getProducts} from "../../mainApi/get-products-apollo";
+import axios from "axios";
+import product from "../../views/product";
 
 
 
@@ -45,7 +48,7 @@ const CategoriesGrid = styled.div`
   width: 358px;
   display: grid;
   grid-template-columns: repeat(2,171px);
-  grid-auto-rows: 288px;
+  grid-auto-rows: 260px;
   gap: 24px 16px;
   @media (min-width: 768px) and (max-width: 1920px) {
     width: 582px;
@@ -79,25 +82,28 @@ const CategoryButton = styled.button`
 `
 
 const PremiumProduct = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 358px;
   height: 188px;
   border: 1px solid red;
-  margin: 0 auto 68px;
+  margin: 0 auto 24px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 24px;
   @media (min-width: 768px) {
     margin: 0;
-    margin-bottom: 50px;
   }
 `
 
-const ProductImg = styled.div`
-  
+const PremiumImg = styled.div`
+  width: 100%;
+  height: 156px;
   background-image: url(${props => props.img});
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 24px;
-  justify-content: start;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 4px;
 `
 
 const ProductTitle = styled.div`
@@ -123,22 +129,7 @@ const ProductPrice = styled.span`
   font-size: 20px;
   line-height: 120%;
   color: #414141;
-  bottom: -60px;
-  margin-top: 24px;
-  
 `
-
-
-
-    // const productsFromApi = axios({
-    //     method: 'get',
-    //     url: 'https://mariapi-env.eba-mrqymv5q.eu-central-1.elasticbeanstalk.com/api/v2/tail/',
-    //     withCredentials: false,
-    // })
-    //     .then(res => {
-    //         return res;
-    //     })
-    //     .catch(err => console.log('Error'))
 
 
 
@@ -154,63 +145,37 @@ const ProductPrice = styled.span`
         },
     ]
 
-
-const GET_PRODUCTS = gql`
-  query MyQuery {
-  vereteno_product {
-    picture_preview
-    id
-    picture
-    product_type_id
-    title
-    description
-  }
+const premiumProduct = {
+    title: 'Замок любви',
+    picture: 'https://marimirai.s3.eu-central-1.amazonaws.com/mari/img/1.jpg',
+    price: 'От 7999'
 }
-`;
 
 
+const MyQuery = `{
+    vereteno_product {
+        description
+        id
+        picture
+        picture_preview
+        product_type_id
+        title
+    }
+}`
 
 function Categories() {
+    const [listOfProducts, setListOfProducts] = useState([]);
 
-    const {error, loading, data} = useQuery(GET_PRODUCTS);
-
-
-    const [listOfProducts, setListOfProducts] = useState(data.vereteno_product);
-
-    console.log(data.vereteno_product)
-
-    console.log(listOfProducts.vereteno_product)
-
-
-    useEffect(() => {
-            setListOfProducts(data)
-            console.log('I render')
-
+    React.useEffect(() => {
+        fetch('http://89.111.136.199:8080/v1/graphql', {
+            method: "POST",
+            body: JSON.stringify({ query: MyQuery })
+        })
+            .then(res => res.json())
+            .then(data => setListOfProducts(data.data.vereteno_product))
     }, []);
 
-    console.log(data)
-
-    // function handleCategory(e) {
-    //
-    //     if (!data) {
-    //         console.log('No data')
-    //     }
-    //     {
-    //         console.log(data)
-    //        setActiveProduct(products.filter((item) => {
-    //            return item.title === e.target.name
-    //            }
-    //        ));
-    //         console.log(activeProduct)
-    //         setListOfProducts(activeProduct)
-    //
-    //     }
-    // }
-
-    function productHandler() {
-        window.location.assign(`/product`)
-    }
-
+    console.log(listOfProducts)
 
 
 
@@ -226,15 +191,18 @@ function Categories() {
                 })
             }
             </CaregoriesBtnsWrapper>
-            {/*<PremiumProduct>*/}
-            {/*    <ProductImg img={products[0].src}>*/}
-            {/*        <ProductTitle>{products[0].title}</ProductTitle>*/}
-            {/*        <ProductPrice>{products[0].price}</ProductPrice>*/}
-            {/*    </ProductImg>*/}
-            {/*</PremiumProduct>*/}
+            <PremiumProduct>
+                <PremiumImg img={premiumProduct.picture}>
+                    <ProductTitle>{premiumProduct.title}</ProductTitle>
+                </PremiumImg>
+
+                    <ProductPrice>{premiumProduct.price}</ProductPrice>
+            </PremiumProduct>
             <CategoriesGrid>
-                    {listOfProducts.vereteno_product.map((product) => {
-                        return <ProductItem onClick={productHandler} key={product.id} title={product.title} img={product.picture_preview} price={product.price}/>
+
+                    {listOfProducts.map((product) => {
+                        return <ProductItem onClick={() =>  window.location.assign(`/product_${product.id}`)} key={product.id} title={product.title} img={product.picture_preview} price={product.title}/>
+
                     })}
             </CategoriesGrid>
 
