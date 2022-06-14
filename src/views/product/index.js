@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
 import image from '../../static/images/fable-image.jpg';
-import {Link} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useWindowDimensions from "../../mainApi/getWIndowDimensions";
 import styles from "../../components/Swiper/styles.module.css";
 import {Swiper, SwiperSlide} from "swiper/react";
 import BigSwiperItem from "../../components/BigProductsSwiper";
+import axios from "axios";
+import login from "../../components/Login/Login";
 
 
 const fablesMock = [
@@ -153,63 +155,96 @@ const ChooseTarifButton = styled.button`
 
 function ProductCard() {
 
+    const {id} = useParams()
+
+
+    const MyQuery = `{
+     vereteno_product {
+    description
+    picture
+    picture_preview
+    product_type_id
+    title
+    id
+  }
+}`
+
+    const [fable, setFable] = useState([]);
     const {width, height} = useWindowDimensions();
 
+    React.useEffect(() => {
+        fetch('http://89.111.136.199:8080/v1/graphql', {
+            method: "POST",
+            body: JSON.stringify({query: MyQuery})
+        })
+            .then(res => res.json())
+            .then(data => data.data.vereteno_product.filter((
+                item => item.id === parseInt(id)
+            )))
+            .then(data => setFable(data[0]))
 
-    return (
-        <>
-            {
-                (width < 1024)
-                    ?
-                    <>
-                <CardContainer>
-                    <CardImage src={image} />
-                </CardContainer>
-                <CardContent>
-                <ContentTitle>{fablesMock[0].title}</ContentTitle>
-                <ContentPrice>{`От ${fablesMock[0].price} P`}</ContentPrice>
-                <ContentDescription>{fablesMock[0].description}</ContentDescription>
-                <ContentDate>Старт сказки: 24.06.2022</ContentDate>
-                <div style={{display: "flex"}}>
+    }, []);
+
+    console.log(fable)
+
+
+
+
+
+
+    return (<>
+        <CardContainer>
+            <CardImage src={fable.picture}/>
+        </CardContainer>
+        <CardContent>
+            <ContentTitle>{fable.title}</ContentTitle>
+            <ContentPrice>{`От ${fable.price} P`}</ContentPrice>
+            <ContentDescription>{fable.description}</ContentDescription>
+            <ContentDate>Старт сказки: 24.06.2022</ContentDate>
+            <div style={{display: "flex"}}>
                 <ContentBullet>12 глав</ContentBullet>
                 <ContentBullet>5 импринтингов</ContentBullet>
-                </div>
-                <Link to='/tariff'><ChooseTarifButton>Выберите тариф</ChooseTarifButton></Link>
-                </CardContent>
-                        </>
-                :
-
-                    <>
-                        <Swiper
-                            spaceBetween={16}
-                            slidesPerView={2}
-                            className={styles.bigSwiperWrapper}
-                            touchEventsTarget={"container"}
-                            simulateTouch={true}
-                            pagination={true}
-                            slideToClickedSlide={true}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
-                        >
-                            {fablesMock.map(fable => {
-                                return <SwiperSlide key={fable.name} className={styles.bigSwiperSlide}>
-
-
-                                    <BigSwiperItem img={image} title={fablesMock[0].title} price={fablesMock[0].price} />
-
-
-
-                                </SwiperSlide>
-
-                            })}
-                        </Swiper>
-                    </>
-
-
-            }
-
-        </>
-    );
+            </div>
+            <Link to='/tariff'><ChooseTarifButton>Выберите тариф</ChooseTarifButton></Link>
+        </CardContent>
+    </>)
 }
 
-export default ProductCard;
+
+    export default ProductCard;
+
+
+
+
+                        {/*:*/}
+
+                        {/*<>*/}
+                        {/*    <Swiper*/}
+                        {/*        spaceBetween={16}*/}
+                        {/*        slidesPerView={2}*/}
+                        {/*        className={styles.bigSwiperWrapper}*/}
+                        {/*        touchEventsTarget={"container"}*/}
+                        {/*        simulateTouch={true}*/}
+                        {/*        pagination={true}*/}
+                        {/*        slideToClickedSlide={true}*/}
+                        {/*        onSlideChange={() => console.log('slide change')}*/}
+                        {/*        onSwiper={(swiper) => console.log(swiper)}*/}
+                        {/*    >*/}
+                        {/*        {fable.map(item => {*/}
+                        {/*            return <SwiperSlide key={item.name} className={styles.bigSwiperSlide}>*/}
+
+
+                        {/*                <BigSwiperItem img={item.picture} title={item.title} price={item.price}/>*/}
+
+
+                        {/*            </SwiperSlide>*/}
+
+                        {/*        })}*/}
+                        {/*    </Swiper>*/}
+                        {/*</>*/}
+
+
+
+
+
+

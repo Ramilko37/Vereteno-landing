@@ -156,10 +156,10 @@ export function App() {
         <Routes>
                     <Route exact path="/" element={!loggedIn ? <Login onLogin={login} onRegister={register}/> : <Catalog/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
-                    <Switch>
+
                     <Route exact path="/catalog" element={<Catalog/>}/>
-                    <Route exact path="/product/:id" element={<ProductCard/>}/>
-                    </Switch>
+                    <Route exact path="/products/:id" element={<ProductCard/>}/>
+
                     <Route exact path="/summary" element={<OrderSummary/>}/>
                      <Route exact path="tariff" element={<Tariff/>}/>
 
