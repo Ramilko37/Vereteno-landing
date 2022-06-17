@@ -7,6 +7,8 @@ import Footer from "../Footer";
 import GET_PRODUCTS, {getProducts} from "../../mainApi/get-products-apollo";
 import axios from "axios";
 import product from "../../views/product";
+import {API_URL} from "../../mainApi/constants";
+import login from "../Login/Login";
 
 
 
@@ -223,19 +225,32 @@ const MyQuery = `{
 function Categories() {
     const [listOfProducts, setListOfProducts] = useState([]);
 
+
+    //get data from hasura
+    // React.useEffect(() => {
+    //     fetch('http://89.111.136.199:8080/v1/graphql', {
+    //         method: "POST",
+    //         body: JSON.stringify({ query: MyQuery })
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => setListOfProducts(data.data.vereteno_product))
+    // }, []);
+
+    //get data from mary-api
     React.useEffect(() => {
-        fetch('http://89.111.136.199:8080/v1/graphql', {
-            method: "POST",
-            body: JSON.stringify({ query: MyQuery })
-        })
-            .then(res => res.json())
-            .then(data => setListOfProducts(data.data.vereteno_product))
+       axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/all`)
+            .then(res => {
+                console.log(res)
+            })
     }, []);
 
-    console.log(listOfProducts.map(item => {
 
-        console.log(typeof item.id)
-    }))
+
+    //
+    // console.log(listOfProducts.map(item => {
+    //
+    //     console.log(typeof item.id)
+    // }))
 
 
 

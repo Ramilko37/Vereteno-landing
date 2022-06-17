@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import styles from './styles.module.css';
 
 const AuthWrapper = styled.div`
   width: 100%;
 `
 
-const FlexWrapper = styled.div`
+const Title = styled.h2`
+  font-family: 'Acherus Feral', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 110%;
+  color: #414141;
+  text-align: center;
+  margin: 128px auto 40px;
+`
+
+const Form = styled.div`
   width: 358px;
   display: flex;
-  margin: 16px auto;
+  flex-direction: column;
+  margin: 16px auto 16px;
 `
 
 const TextContent = styled.span`
@@ -33,7 +46,7 @@ const LinkSpan = styled.a`
   text-decoration: underline;
 `
 
-const EmailInput = styled.input`
+const Input = styled.input`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -45,6 +58,7 @@ const EmailInput = styled.input`
   background: #FFFFFF;
   border: 2px solid #CEA687;
   border-radius: 8px;
+  margin: 16px 0 0;
 `
 
 const PasswordInput = styled.input`
@@ -70,7 +84,7 @@ const SubmitButton = styled.button`
   background: #CEA687;
   border: none;
   border-radius: 8px;
-  margin: 0 auto;
+  margin: 16px auto 10px;
   color: #FFFFFF;
   display: block;
   appearance: none;
@@ -91,7 +105,7 @@ function Register({ preloader, error, onRegister }) {
     const [nameDirty, setNameDirty] = useState(false);
     const [emailDirty, setEmailDirty] = useState(false);
     const [passwordDirty, setPasswordDirty] = useState(false);
-    const [nameError, setNameError] = useState("Имя не должен быть пустым");
+    const [nameError, setNameError] = useState("Имя не должно быть пустым");
     const [emailError, setEmailError] = useState("Email не должен быть пустым");
     const [passwordError, setPasswordError] = useState(
         "Пароль не должен быть пустым"
@@ -166,14 +180,19 @@ function Register({ preloader, error, onRegister }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log('register')
         onRegister(name, email, password);
     };
 
     return (
         <AuthWrapper className = 'register'>
-            <form className = 'register__container' onSubmit={handleSubmit} name='login'>
-                <span className = 'register__span'>Имя</span>
-                <EmailInput className = 'register__input'
+
+            <Title>Создать профиль VERETENO</Title>
+
+            <Form className = 'register__container' name='login'>
+                {/*<span className = 'register__span'>Имя</span>*/}
+                <Input className = 'register__input'
+                            placeholder='Имя'
                        value={name}
                        id='name-input'
                        type='name'
@@ -193,8 +212,9 @@ function Register({ preloader, error, onRegister }) {
           </span>
                 )}
                 {/* <span className = 'register__error'>Что-то пошло не так...</span> */}
-                <span className = 'register__span'>E-mail</span>
-                <EmailInput className = 'register__input'
+                {/*<span className = 'register__span'>E-mail</span>*/}
+                <Input className = 'register__input'
+                            placeholder='E-mail'
                        value={email}
                        id='email-input'
                        type='email'
@@ -214,8 +234,9 @@ function Register({ preloader, error, onRegister }) {
           </span>
                 )}
                 {/* <span className = 'register__error'>Что-то пошло не так...</span> */}
-                <span className = 'register__span'>Пароль</span>
-                <EmailInput className = 'register__input'
+                {/*<span className = 'register__span'>Пароль</span>*/}
+                <Input className = 'register__input'
+                       placeholder='Пароль'
                        value={password}
                        id='password-input'
                        type='password'
@@ -236,16 +257,17 @@ function Register({ preloader, error, onRegister }) {
                 )}
                 {/* <span className = 'register__error'>Что-то пошло не так...</span> */}
                 <div className = 'register-footer'>
-                    <div className = 'register-footer__container'>
-                        <button
+                    <div className={styles.registerFooterContainer}>
+                        <SubmitButton
                             className = 'register-footer__btn'
                             disabled={!formValid}
                             type='submit'
-                            value='Зарегистрироваться'>Зарегестрироваться</button>
-                        <span className = 'register-footer__span'>Уже зарегестрированы? <Link to = '/signin' className = 'register-footer__link'>Войти</Link></span>
+                            value='Зарегистрироваться'
+                            onClick={onRegister}>Зарегистрироваться</SubmitButton>
+                        <span className = 'register-footer__span'>Уже зарегистрированы? <Link to = '/signin' className = 'register-footer__link'>Войти</Link></span>
                     </div>
                 </div>
-            </form>
+            </Form>
         </AuthWrapper>
     );
 }

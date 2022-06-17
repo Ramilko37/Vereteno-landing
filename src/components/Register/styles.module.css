@@ -1,0 +1,8 @@
+.registerFooterContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-footer__span {
+
+}

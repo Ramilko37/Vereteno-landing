@@ -81,28 +81,28 @@ export function App() {
     // ЛОГИН
     function login(email, password) {
         setPreloaderAuth(true);
-        // MainApi.authorize(email, password)
-        //     .then((result) => {
-        //         if (result.token) {
-        //             localStorage.setItem("token", result.token);
-        //             localStorage.setItem("loggedIn", true);
-        //             setLoggedIn(true);
-        //             // navigate("/movies");
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         setErrorSignIn(true);
-        //         console.log(err);
-        //     })
-        //     .finally(() => {
-        //         setTimeout(() => {
-        //             setPreloaderAuth(false);
-        //         }, 300);
-        //     });
+        MainApi.authorize(email, password)
+            .then((result) => {
+                if (result.token) {
+                    localStorage.setItem("token", result.token);
+                    localStorage.setItem("loggedIn", true);
+                    setLoggedIn(true);
+                    // navigate("/movies");
+                }
+            })
+            .catch((err) => {
+                setErrorSignIn(true);
+                console.log(err);
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setPreloaderAuth(false);
+                }, 300);
+            });
 
-        localStorage.getItem('TOKEN', '5555')
-        const token = '5555';
-        localStorage.setItem("loggedIn", token);
+        // localStorage.getItem('TOKEN', '5555')
+        // const token = '5555';
+        // localStorage.setItem("loggedIn", token);
                     setLoggedIn(true);
         console.log(loggedIn);
 
@@ -113,6 +113,7 @@ export function App() {
         setPreloaderAuth(true);
          MainApi.register(name, email, password)
             .then(() => {
+                console.log('register')
                 login(email, password);
                 localStorage.setItem('TOKEN', '5555')
              })
@@ -130,22 +131,23 @@ export function App() {
     }
 
     // ПОЛУЧИТЬ ИНФОРМАЦИЮ О ПОЛЬЗОВАТЕЛЕ
-    useEffect(() => {
-        setPreloader(true);
-        if (loggedIn) {
-            Promise.all([
-                MainApi.getUserInfo(),
-            ])
-                .then(([userInf]) => {
-                    setCurrentUser(userInf);
-                })
-                .catch((err) => console.log(err))
-                .finally(() => {
-                    setPreloader(false);
-                });
-        }
-    }, [loggedIn, currentUser._id]);
+    // useEffect(() => {
+    //     setPreloader(true);
+    //     if (loggedIn) {
+    //         Promise.all([
+    //             MainApi.getUserInfo(),
+    //         ])
+    //             .then(([userInf]) => {
+    //                 setCurrentUser(userInf);
+    //             })
+    //             .catch((err) => console.log(err))
+    //             .finally(() => {
+    //                 setPreloader(false);
+    //             });
+    //     }
+    // }, [loggedIn, currentUser._id]);
 
+    console.log(loggedIn)
 
 
     return (
@@ -165,7 +167,7 @@ export function App() {
 
 
             <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
-            <Route path='/signup' element={<Register onRegister={register} />}/>
+            <Route path='/signup' element={<Register onRegister={register}/>}/>
             <Route path='/getcourse' element={<GetCourse/>}/>
         </Routes>
         </Router>
