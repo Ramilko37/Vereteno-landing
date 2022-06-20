@@ -157,6 +157,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  opacity: 0;
+  transition: .9s opacity ease-in-out;й
 `
 
 
@@ -194,7 +196,7 @@ function ProductCard() {
 
 
 
-    return (<Wrapper>
+    return (<Wrapper style={{ opacity: 1 }}>
         <CardContainer>
             <CardImage src={fable.picture}/>
         </CardContainer>

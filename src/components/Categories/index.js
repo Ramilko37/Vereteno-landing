@@ -8,7 +8,7 @@ import GET_PRODUCTS, {getProducts} from "../../mainApi/get-products-apollo";
 import axios from "axios";
 import product from "../../views/product";
 import {API_URL, PRODUCTS_DATA} from "../../mainApi/constants";
-import login from "../Login/Login";
+import styles from './styles.module.css';
 
 
 
@@ -18,10 +18,6 @@ const CategoriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  @media (min-width: 768px) {
-    width: 100%;
-    justify-self: left;
-  }
 `
 
 const CategoriesTitle = styled.h2`
@@ -226,7 +222,7 @@ const MyQuery = `{
 
 function Categories() {
     const [listOfProducts, setListOfProducts] = useState([]);
-
+    const [isClicked, setIsClicked] = useState(false);
 
     //get data from hasura
     // React.useEffect(() => {
@@ -253,6 +249,13 @@ function Categories() {
 
 
 
+    const handleCategory = (e) => {
+         setListOfProducts(listOfProducts.filter(item => item.title === e.target.name));
+        setIsClicked(!isClicked);
+        e.target.classList.add(styles.buttonClicked)
+        console.log(isClicked)
+        console.log(listOfProducts)
+    }
 
 
     return (
@@ -261,7 +264,9 @@ function Categories() {
             <CaregoriesBtnsWrapper style={{ display: "flex", marginBottom: "40px"}}>
             {
                 categories.map(category => {
-                    return <CategoryButton key={category.name} name={category.name}>{category.name}</CategoryButton>
+                    return <CategoryButton key={category.name} name={category.name}
+                        onClick={handleCategory}
+                    >{category.name}</CategoryButton>
                 })
             }
             </CaregoriesBtnsWrapper>
@@ -289,9 +294,6 @@ function Categories() {
                               )
                     })}
             </CategoriesGrid>
-
-            <Footer/>
-
         </CategoriesContainer>
     );
 }

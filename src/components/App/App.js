@@ -16,6 +16,7 @@ import GET_PRODUCTS from "../../mainApi/get-products-apollo";
 import { onError } from "@apollo/client/link/error";
 import GetCourse from "../../views/getcourse";
 import Tariff from "../../views/tariff";
+import Footer from "../Footer";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
     if(graphqlErrors) {
@@ -45,7 +46,7 @@ export function App() {
 
 
     const [loggedIn, setLoggedIn] = useState(
-         false
+        Boolean(localStorage.getItem("loggedIn")) || false
     );
     const [registered, serRegistered] = useState(
         Boolean(localStorage.getItem("token")) || false
@@ -161,7 +162,9 @@ export function App() {
         <BasicLayout>
         <Router>
         <Routes>
-                    <Route exact path="/" element={registered ? <NewLogin onLogin={login} onRegister={registration}/> : <Catalog/> }/>
+                    <Route exact path="/" element={!loggedIn
+                        ? <NewLogin onLogin={login} onRegister={registration}/>
+                        : <Catalog loggedIn={loggedIn}/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
 
                     <Route exact path="/catalog" element={loggedIn ? <Catalog/> : <NewLogin onLogin={login}/>}/>

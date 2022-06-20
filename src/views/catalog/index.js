@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
 import posterImg from '../../static/images/posterImg.svg'
 import posterImgBig from '../../static/images/PosterBg.jpg'
 import arrowRight from '../../static/images/arrow.svg'
 import profileIcon from '../../static/images/profileIcon.svg'
 import Categories from "../../components/Categories";
+import Footer from "../../components/Footer";
 
 
 
@@ -14,6 +15,14 @@ const CatalogContainer = styled.section`
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
+  opacity: 0;
+  transition: .9s opacity ease-in-out;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 82%;
+    margin: 0 auto;
+    justify-self: left;
+  }
 `
 
 const Poster = styled.div`
@@ -93,12 +102,12 @@ const ProfileIcon = styled.button`
 
 
 
-function Catalog() {
-
+function Catalog(loggedIn) {
 
 
     return (
-        <CatalogContainer>
+        <>
+        <CatalogContainer style={loggedIn &&  { opacity: 1 }}>
             <ProfileHead>
                 <ProfileIcon />
             </ProfileHead>
@@ -114,6 +123,8 @@ function Catalog() {
             </Poster>
             <Categories/>
         </CatalogContainer>
+    <Footer />
+        </>
     );
 }
 

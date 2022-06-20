@@ -14,9 +14,6 @@ const FooterContainer = styled.section`
   box-sizing: border-box;
   height: 400px;
   margin-top: 76px;
-  @media (min-width: 768px) {
-    width: 100%;
-  }
 `
 const FooterLink = styled.a`
   font-family: 'Acherus Feral', sans-serif;
@@ -38,7 +35,7 @@ function Footer(props) {
     return (
         <FooterContainer>
             <Logo style={{ margin: '0 auto 23px' }}/>
-            <Lines />
+            <Lines style={{ width: '100%' }}/>
             <FooterLink>Политика конфиденциальности</FooterLink>
             <FooterLink>Публичная оферта</FooterLink>
         </FooterContainer>

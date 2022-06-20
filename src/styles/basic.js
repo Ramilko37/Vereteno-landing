@@ -12,12 +12,6 @@ export const GlobalStyle = createGlobalStyle`
 body {
     padding: 0;
   
-}  
-@media screen and (min-width: 768px) {
-  body {
-  max-width: 82%;
-   margin: 0 auto;
-  }
 }
 
 a {
@@ -75,6 +69,7 @@ return (
  <GlobalStyle  />
  {props.header && <Header/>}
                {children}
+ {props.footer && <Footer />}
 </>
 )
 }
