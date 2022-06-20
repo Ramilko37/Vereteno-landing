@@ -42,8 +42,13 @@ export function App() {
 
 
 
+
+
     const [loggedIn, setLoggedIn] = useState(
-        Boolean(localStorage.getItem("loggedIn")) || false
+         false
+    );
+    const [registered, serRegistered] = useState(
+        Boolean(localStorage.getItem("token")) || false
     );
     const [currentUser, setCurrentUser] = useState({});
     const [errorSignUp, setErrorSignUp] = useState(false);
@@ -60,39 +65,39 @@ export function App() {
     // const location = useLocation();
 
     // token check
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            MainApi.checkToken(token)
-                .then((result) => {
-                    if (result) {
-                        setLoggedIn(true);
-                        // navigate(location.pathname);
-                    }
-                })
-                .catch((err) => {
-                    localStorage.removeItem("token");
-                    // navigate("/signin");
-                    console.log(`${err}`);
-                });
-        }
-    }, []);
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (token) {
+    //         MainApi.checkToken(token)
+    //             .then((result) => {
+    //                 if (result) {
+    //                     setLoggedIn(true);
+    //                     // navigate(location.pathname);
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 localStorage.removeItem("token");
+    //                 // navigate("/signin");
+    //                 console.log(`${err}`);
+    //             });
+    //     }
+    // }, []);
 
     // ЛОГИН
-    function login(email, password) {
+    function login(name, password) {
         setPreloaderAuth(true);
-        MainApi.authorize(email, password)
+        MainApi.authorize(name, password)
             .then((result) => {
-                if (result.token) {
-                    localStorage.setItem("token", result.token);
+                console.log(result)
+                    localStorage.setItem("token", toString(result));
                     localStorage.setItem("loggedIn", true);
                     setLoggedIn(true);
-                    // navigate("/movies");
+
                 }
-            })
+            )
             .catch((err) => {
                 setErrorSignIn(true);
-                console.log(err);
+                console.log('Ощибка');
             })
             .finally(() => {
                 setTimeout(() => {
@@ -103,19 +108,19 @@ export function App() {
         // localStorage.getItem('TOKEN', '5555')
         // const token = '5555';
         // localStorage.setItem("loggedIn", token);
-                    setLoggedIn(true);
+                    if (loggedIn) {
+                        window.location.assign('/catalog')
+                    }
         console.log(loggedIn);
 
     }
 
     // РЕГИСТРАЦИЯ
-    function register(name, email, password) {
+    function registration(name, email, password, USER_ROLE) {
         setPreloaderAuth(true);
-         MainApi.register(name, email, password)
+         MainApi.register(name, email, password, USER_ROLE)
             .then(() => {
-                console.log('register')
                 login(email, password);
-                localStorage.setItem('TOKEN', '5555')
              })
              .catch((err) => {
                  if (err) {
@@ -156,10 +161,10 @@ export function App() {
         <BasicLayout>
         <Router>
         <Routes>
-                    <Route exact path="/" element={!loggedIn ? <Login onLogin={login} onRegister={register}/> : <Catalog/> }/>
+                    <Route exact path="/" element={registered ? <NewLogin onLogin={login} onRegister={registration}/> : <Catalog/> }/>
                     <Route exact path="/confirmed" element={<Confirmed/>}/>
 
-                    <Route exact path="/catalog" element={<Catalog/>}/>
+                    <Route exact path="/catalog" element={loggedIn ? <Catalog/> : <NewLogin onLogin={login}/>}/>
                     <Route exact path="/products/:id" element={<ProductCard/>}/>
 
                     <Route exact path="/summary" element={<OrderSummary/>}/>
@@ -167,7 +172,7 @@ export function App() {
 
 
             <Route path='/signin' element={<NewLogin onLogin={login}/>}/>
-            <Route path='/signup' element={<Register onRegister={register}/>}/>
+            <Route path='/signup' element={<Register onRegister={registration}/>}/>
             <Route path='/getcourse' element={<GetCourse/>}/>
         </Routes>
         </Router>

@@ -7,7 +7,7 @@ import Footer from "../Footer";
 import GET_PRODUCTS, {getProducts} from "../../mainApi/get-products-apollo";
 import axios from "axios";
 import product from "../../views/product";
-import {API_URL} from "../../mainApi/constants";
+import {API_URL, PRODUCTS_DATA} from "../../mainApi/constants";
 import login from "../Login/Login";
 
 
@@ -144,6 +144,7 @@ const ItemContainer = styled.div`
     flex-direction: column;
     border: 1px solid red;
     justify-content: start;
+  height: 260px;
 `
 
 const ProductImg = styled.div`
@@ -207,7 +208,8 @@ const ItemPrice = styled.span`
 const premiumProduct = {
     title: 'Замок любви',
     picture: 'https://marimirai.s3.eu-central-1.amazonaws.com/mari/img/1.jpg',
-    price: 'От 7999'
+    price: 'От 7999',
+    id: 1
 }
 
 
@@ -240,17 +242,14 @@ function Categories() {
     React.useEffect(() => {
        axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/all`)
             .then(res => {
-                console.log(res)
+                setListOfProducts(res.data)
             })
+
     }, []);
 
 
-
-    //
-    // console.log(listOfProducts.map(item => {
-    //
-    //     console.log(typeof item.id)
-    // }))
+    console.log(PRODUCTS_DATA)
+    console.log(listOfProducts)
 
 
 
@@ -266,6 +265,7 @@ function Categories() {
                 })
             }
             </CaregoriesBtnsWrapper>
+            <Link to={`/products/${product.id}`}>
             <PremiumProduct>
                 <PremiumImg img={premiumProduct.picture}>
                     <ProductTitle>{premiumProduct.title}</ProductTitle>
@@ -273,16 +273,17 @@ function Categories() {
 
                     <ProductPrice>{premiumProduct.price}</ProductPrice>
             </PremiumProduct>
+            </Link>
             <CategoriesGrid>
 
-                    {listOfProducts.map((product) => {
+                    {listOfProducts.map((product, key) => {
                       return (
-                          <Link to={`/products/${product.id}`}>
+                          <Link to={`/products/${product.id}`} key={product.id}>
                           <ItemContainer>
                             <ProductImg img={product.picture}>
                                  <ProductTitle>{product.title}</ProductTitle>
                             </ProductImg>
-                            <ProductPrice>{product.price}</ProductPrice>
+                            <ItemPrice>product.price</ItemPrice>
                         </ItemContainer>
                           </Link>
                               )

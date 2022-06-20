@@ -8,6 +8,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import BigSwiperItem from "../../components/BigProductsSwiper";
 import axios from "axios";
 import login from "../../components/Login/Login";
+import {PRODUCTS_DATA} from "../../mainApi/constants";
+import {removeDirectivesFromDocument} from "@apollo/client/utilities";
 
 
 const fablesMock = [
@@ -151,6 +153,11 @@ const ChooseTarifButton = styled.button`
   margin: 93px auto 0;
 `
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+`
 
 
 function ProductCard() {
@@ -172,27 +179,22 @@ function ProductCard() {
     const [fable, setFable] = useState([]);
     const {width, height} = useWindowDimensions();
 
-    React.useEffect(() => {
-        fetch('http://89.111.136.199:8080/v1/graphql', {
-            method: "POST",
-            body: JSON.stringify({query: MyQuery})
-        })
-            .then(res => res.json())
-            .then(data => data.data.vereteno_product.filter((
-                item => item.id === parseInt(id)
-            )))
-            .then(data => setFable(data[0]))
 
-    }, []);
+        React.useEffect(() => {
+            axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/${id}`)
+                // .then(res => res.data.filter(
+                //     item => item.id === parseInt(id)
+                // ))
+                // .then(res => console.log(res.data.filter(item => item.id === parseInt(id))))
+                .then(data => setFable(data.data))
+
+        }, []);
 
     console.log(fable)
 
 
 
-
-
-
-    return (<>
+    return (<Wrapper>
         <CardContainer>
             <CardImage src={fable.picture}/>
         </CardContainer>
@@ -207,7 +209,7 @@ function ProductCard() {
             </div>
             <Link to='/tariff'><ChooseTarifButton>Выберите тариф</ChooseTarifButton></Link>
         </CardContent>
-    </>)
+    </Wrapper>)
 }
 
 

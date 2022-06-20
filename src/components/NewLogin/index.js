@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 
+
+
 const AuthWrapper = styled.div`
+  display: flex;
   width: 100%;
+  justify-content: center;
+  margin: 50% auto 0;
 `
 
 const FlexWrapper = styled.div`
@@ -34,7 +39,7 @@ const LinkSpan = styled.a`
   text-decoration: underline;
 `
 
-const EmailInput = styled.input`
+const Input = styled.input`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -46,6 +51,7 @@ const EmailInput = styled.input`
   background: #FFFFFF;
   border: 2px solid #CEA687;
   border-radius: 8px;
+  margin: 0;
 `
 
 const PasswordInput = styled.input`
@@ -84,9 +90,19 @@ const SubmitButton = styled.button`
    background: #858484;
  }
 `
+const Label = styled.span`
+  font-family: 'Acherus Feral', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 120%;
+  color: #000000;
+  margin-top: 4px;
+  margin-bottom: 4px;
+`
 
 function NewLogin({ error, onLogin }) {
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [emailDirty, setEmailDirty] = useState(false);
     const [passwordDirty, setPasswordDirty] = useState(false);
@@ -97,7 +113,7 @@ function NewLogin({ error, onLogin }) {
     const [formValid, setFormValid] = useState(false);
 
     useEffect(() => {
-        if (emailError || passwordError) {
+        if (passwordError) {
             setFormValid(false);
 
         } else {
@@ -115,8 +131,8 @@ function NewLogin({ error, onLogin }) {
                 break;
         }
     };
-    const emailHandler = (event) => {
-        setEmail(event.target.value);
+    const nameHandler = (event) => {
+        setName(event.target.value);
         const re =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(event.target.value).toLowerCase())) {
@@ -145,35 +161,60 @@ function NewLogin({ error, onLogin }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onLogin(email, password);
+        onLogin(name, password);
     };
 
     return (
         <AuthWrapper className = 'login'>
             <form className = 'login__container' onSubmit={handleSubmit} name='login'>
-                <span className = 'login__span'>E-mail</span>
-                <EmailInput className = 'login__input'
-                       value={email}
-                       id='email-input'
-                       type='email'
-                       name='email'
+          {/*      <span className = 'login__span'>E-mail</span>*/}
+          {/*      <EmailInput className = 'login__input'*/}
+          {/*             value={email}*/}
+          {/*             id='email-input'*/}
+          {/*             type='email'*/}
+          {/*             name='email'*/}
+          {/*             required*/}
+          {/*             onBlur={(event) => handlerBlur(event)}*/}
+          {/*             onChange={(event) => emailHandler(event)}*/}
+          {/*      />*/}
+          {/*      <div className = 'login__line'></div>*/}
+          {/*      {emailDirty && emailError && (*/}
+          {/*          <span id='email-input-error'  className={*/}
+          {/*              emailError*/}
+          {/*                  ? "login__error login__error_active"*/}
+          {/*                  : "login__error"*/}
+          {/*          }>*/}
+          {/*  {emailError}*/}
+          {/*</span>*/}
+          {/*      )}*/}
+                <Label>Имя</Label>
+                <Input
+                       placeholder='Имя'
+                       value={name}
+                       id='name-input'
+                       type='name'
+                       name='name'
                        required
                        onBlur={(event) => handlerBlur(event)}
-                       onChange={(event) => emailHandler(event)}
+                       onChange={(event) => nameHandler(event)}
                 />
-                <div className = 'login__line'></div>
-                {emailDirty && emailError && (
-                    <span id='email-input-error'  className={
-                        emailError
-                            ? "login__error login__error_active"
-                            : "login__error"
-                    }>
-            {emailError}
-          </span>
-                )}
-                <span className = 'login__span'>Пароль</span>
+                <div className = 'register__line'></div>
+          {/*      {nameDirty && nameError && (*/}
+          {/*          <span id='name-input-error' className={*/}
+          {/*              nameError*/}
+          {/*                  ? "register__error register__error_active"*/}
+          {/*                  : "register__error"*/}
+          {/*          }>*/}
+          {/*  {nameError}*/}
+          {/*</span>*/}
+          {/*      )}*/}
+
+
+
+                <Label>Пароль</Label>
                 <PasswordInput className = 'login__input'
                        value={password}
+                               placeholder={'Пароль'}
                        id='password-input'
                        type='password'
                        name='password'
@@ -192,11 +233,11 @@ function NewLogin({ error, onLogin }) {
             </span>
                 )}
                 <div className = 'login-footer'>
-                    <div className = 'login-footer__container'>
-                        <button className = 'login-footer__btn'
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column'  }}>
+                        <SubmitButton className = 'login-footer__btn'
                                 disabled={!formValid}
                                 type='submit'
-                                value='Войти'>Войти</button>
+                                value='Войти'>Войти</SubmitButton>
                         <span className = 'login-footer__span'>Ещё не зарегистрированы? <Link to = 'signup' className = 'login-footer__link'>Регистрация</Link></span>
                     </div>
                 </div>

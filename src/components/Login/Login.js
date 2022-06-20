@@ -44,7 +44,7 @@ const Button = styled.button`
 `
 
 
-const Login = (register, login) => {
+const Login = (registration, login) => {
     // Inputs
     const [mynumber, setnumber] = useState("");
     const [otp, setotp] = useState('');
@@ -52,7 +52,7 @@ const Login = (register, login) => {
     const [final, setfinal] = useState('');
 
     const handleRegister = () => {
-        register();
+        registration();
     }
 
     // Sent OTP

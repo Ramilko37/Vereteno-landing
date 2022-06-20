@@ -190,7 +190,7 @@ function Register({ preloader, error, onRegister }) {
             <Title>Создать профиль VERETENO</Title>
 
             <Form className = 'register__container' name='login'>
-                {/*<span className = 'register__span'>Имя</span>*/}
+                <span className = 'register__span'>Имя</span>
                 <Input className = 'register__input'
                             placeholder='Имя'
                        value={name}
@@ -263,7 +263,7 @@ function Register({ preloader, error, onRegister }) {
                             disabled={!formValid}
                             type='submit'
                             value='Зарегистрироваться'
-                            onClick={onRegister}>Зарегистрироваться</SubmitButton>
+                            onClick={handleSubmit}>Зарегистрироваться</SubmitButton>
                         <span className = 'register-footer__span'>Уже зарегистрированы? <Link to = '/signin' className = 'register-footer__link'>Войти</Link></span>
                     </div>
                 </div>

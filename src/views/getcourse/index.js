@@ -20,6 +20,9 @@ function myscript() {
 
 }
 
+const LoveCastle = '529233'
+const TestWidget = '678358'
+
 const IFRAME_URL = `https://mary.education/pl/lite/widget/widget?${window.location.search.substring(1)}&id=678358&ref=${encodeURIComponent(document.referrer)}&loc=${encodeURIComponent(document.location.href)}`
 
 function GetCourse(props) {
@@ -43,9 +46,11 @@ body.classList.add(styles.body)
             <FlexWrapper>
 
 
+                <script id="6d7d57bb90297d5a17b4b3c811d71ed841d77e9e" src="http://mary.education/pl/lite/widget/script?id=529233"></script>
 
                 <iframe className={styles.iframe} id='be2482293570ad3bec7a994918173b0d31b260c0'
                         src={IFRAME_URL}></iframe>
+
             </FlexWrapper>
         )
 
