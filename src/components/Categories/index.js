@@ -72,8 +72,9 @@ const CategoryButton = styled.button`
   font-weight: 300;
   font-size: 16px;
   line-height: 120%;
-  color: #FFFFFF;
+  background: : ${props => props.bg ? props.bg : "white"};
   margin-right: 19px;
+  color: #000000;
   :last-child {
     margin-right: 0;
   }
@@ -252,7 +253,7 @@ function Categories() {
     const handleCategory = (e) => {
          setListOfProducts(listOfProducts.filter(item => item.title === e.target.name));
         setIsClicked(!isClicked);
-        e.target.classList.add(styles.buttonClicked)
+        e.target.classList.toggle(styles.buttonClicked)
         console.log(isClicked)
         console.log(listOfProducts)
     }
@@ -264,7 +265,7 @@ function Categories() {
             <CaregoriesBtnsWrapper style={{ display: "flex", marginBottom: "40px"}}>
             {
                 categories.map(category => {
-                    return <CategoryButton key={category.name} name={category.name}
+                    return <CategoryButton bg='#fff' key={category.name} name={category.name}
                         onClick={handleCategory}
                     >{category.name}</CategoryButton>
                 })
