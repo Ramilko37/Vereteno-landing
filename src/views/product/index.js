@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
-import image from '../../static/images/fable-image.jpg';
 import { Link, useParams } from "react-router-dom";
 import useWindowDimensions from "../../mainApi/getWIndowDimensions";
 import styles from "../../components/Swiper/styles.module.css";
@@ -10,15 +9,17 @@ import axios from "axios";
 import login from "../../components/Login/Login";
 import {PRODUCTS_DATA} from "../../mainApi/constants";
 import {removeDirectivesFromDocument} from "@apollo/client/utilities";
+import image from '../../static/images/loveCastle.jpg'
 
 
 const fablesMock = [
     {
-        title: 'Новые сказки',
-        name: 'Отель',
-        image: 'https://picsum.photos/163/184',
-        price: '9999',
-        description: 'Иммерсивный аудио-квест погрузившись в который, ты проживешь самую важную трансформацию в своей жизни'
+        title: 'Замок Любви',
+        name: 'Замок Любви',
+        image: 'https://disk.yandex.ru/client/disk?idApp=client&dialog=slider&idDialog=%2Fdisk%2Ffable-image.jpg',
+        price: '7777',
+        description: 'Иммерсивный аудио-квест погрузившись в который, ты проживешь самую важную трансформацию в своей жизни',
+        id: 2
     },
     {
         title: 'Новые сказки',
@@ -58,7 +59,7 @@ const CardImage = styled.img`
 const CardContent = styled.div`
   width: 390px;
   height: 490px;
-  border: 1px solid red;
+  //border: 1px solid red;
   position: absolute;
   top: 330px;
   z-index: 100;
@@ -158,7 +159,7 @@ const Wrapper = styled.div`
   justify-content: center;
   margin: 0 auto;
   opacity: 0;
-  transition: .9s opacity ease-in-out;й
+  transition: .9s opacity ease-in-out;
 `
 
 
@@ -182,15 +183,15 @@ function ProductCard() {
     const {width, height} = useWindowDimensions();
 
 
-        React.useEffect(() => {
-            axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/${id}`)
-                // .then(res => res.data.filter(
-                //     item => item.id === parseInt(id)
-                // ))
-                // .then(res => console.log(res.data.filter(item => item.id === parseInt(id))))
-                .then(data => setFable(data.data))
-
-        }, []);
+        // React.useEffect(() => {
+        //     axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/${id}`)
+        //         // .then(res => res.data.filter(
+        //         //     item => item.id === parseInt(id)
+        //         // ))
+        //         // .then(res => console.log(res.data.filter(item => item.id === parseInt(id))))
+        //         .then(data => setFable(data.data))
+        //
+        // }, []);
 
     console.log(fable)
 
@@ -198,12 +199,12 @@ function ProductCard() {
 
     return (<Wrapper style={{ opacity: 1 }}>
         <CardContainer>
-            <CardImage src={fable.picture}/>
+            <CardImage src={image}/>
         </CardContainer>
         <CardContent>
-            <ContentTitle>{fable.title}</ContentTitle>
-            <ContentPrice>{`От ${fable.price} P`}</ContentPrice>
-            <ContentDescription>{fable.description}</ContentDescription>
+            <ContentTitle>{fablesMock[0].title}</ContentTitle>
+            <ContentPrice>{`От ${fablesMock[0].price} P`}</ContentPrice>
+            <ContentDescription>{fablesMock[0].description}</ContentDescription>
             <ContentDate>Старт сказки: 24.06.2022</ContentDate>
             <div style={{display: "flex"}}>
                 <ContentBullet>12 глав</ContentBullet>

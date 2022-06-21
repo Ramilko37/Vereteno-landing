@@ -9,6 +9,7 @@ import axios from "axios";
 import product from "../../views/product";
 import {API_URL, PRODUCTS_DATA} from "../../mainApi/constants";
 import styles from './styles.module.css';
+import love from '../../static/images/loveCastleCatalog.jpg'
 
 
 
@@ -72,7 +73,7 @@ const CategoryButton = styled.button`
   font-weight: 300;
   font-size: 16px;
   line-height: 120%;
-  background: : ${props => props.bg ? props.bg : "white"};
+  background: ${props => props.bg ? props.bg : "white"};
   margin-right: 19px;
   color: #000000;
   :last-child {
@@ -85,7 +86,7 @@ const PremiumProduct = styled.div`
   flex-direction: column;
   width: 358px;
   height: 188px;
-  border: 1px solid red;
+  //border: 1px solid red;
   margin: 0 auto 24px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -139,7 +140,7 @@ const ItemContainer = styled.div`
     background-size: cover;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+    //border: 1px solid red;
     justify-content: start;
   height: 260px;
 `
@@ -206,7 +207,7 @@ const premiumProduct = {
     title: 'Замок любви',
     picture: 'https://marimirai.s3.eu-central-1.amazonaws.com/mari/img/1.jpg',
     price: 'От 7999',
-    id: 1
+    id: 2,
 }
 
 
@@ -226,23 +227,23 @@ function Categories() {
     const [isClicked, setIsClicked] = useState(false);
 
     //get data from hasura
-    // React.useEffect(() => {
-    //     fetch('http://89.111.136.199:8080/v1/graphql', {
-    //         method: "POST",
-    //         body: JSON.stringify({ query: MyQuery })
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => setListOfProducts(data.data.vereteno_product))
-    // }, []);
+    React.useEffect(() => {
+        fetch('http://89.111.136.199:8080/v1/graphql', {
+            method: "POST",
+            body: JSON.stringify({ query: MyQuery })
+        })
+            .then(res => res.json())
+            .then(data => setListOfProducts(data.data.vereteno_product))
+    }, []);
 
     //get data from mary-api
-    React.useEffect(() => {
-       axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/all`)
-            .then(res => {
-                setListOfProducts(res.data)
-            })
-
-    }, []);
+    // React.useEffect(() => {
+    //    axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/all`)
+    //         .then(res => {
+    //             setListOfProducts(res.data)
+    //         })
+    //
+    // }, []);
 
 
     console.log(PRODUCTS_DATA)
@@ -265,15 +266,15 @@ function Categories() {
             <CaregoriesBtnsWrapper style={{ display: "flex", marginBottom: "40px"}}>
             {
                 categories.map(category => {
-                    return <CategoryButton bg='#fff' key={category.name} name={category.name}
+                    return <CategoryButton key={category.name} name={category.name}
                         onClick={handleCategory}
                     >{category.name}</CategoryButton>
                 })
             }
             </CaregoriesBtnsWrapper>
-            <Link to={`/products/${product.id}`}>
-            <PremiumProduct>
-                <PremiumImg img={premiumProduct.picture}>
+            <Link to={`/products/${premiumProduct.id}`}>
+            <PremiumProduct id={1}>
+                <PremiumImg img={love}>
                     <ProductTitle>{premiumProduct.title}</ProductTitle>
                 </PremiumImg>
 
