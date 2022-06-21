@@ -141,7 +141,7 @@ const bulletsMaster = [' ⁃ Доступ в приложении VERETENO к с
 ];
 
 export const SwiperContainer = (visibility) => {
-    const [activeSlide, setActiveSlide] = useState(null);
+    const [activeSlide, setActiveSlide] = useState(0);
 
     const swiperSlide = useSwiperSlide();
 
