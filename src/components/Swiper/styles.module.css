@@ -1,13 +1,13 @@
 .swiperContainer {
     width: 100%;
-    height: 327px;
+    height: 367px;
     background: #FDFAF7;
     margin-bottom: 54px;
 }
 
 .swiperWrapper {
     border-radius: 8px;
-    height: 327px;
+    height: 367px;
     background: #FDFAF7;
 }
 
@@ -29,7 +29,7 @@
 .swiperSlide {
     background-size: cover;
     width: 159px;
-    height: 231px;
+    height: 261px;
     border-radius: 16px;
     position: relative;
     margin-top: 40px;

@@ -15,35 +15,46 @@ const Container = styled.section`
 `
 
 const Title = styled.h3`
-  font-family: 'Viaoda Libre',serif;
+  font-family: 'Viaoda Libre', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 22px;
+  line-height: 28px;
   letter-spacing: 0.02em;
   font-feature-settings: 'ordn' on;
   color: #414141;
-  margin: 30px 0 55px;
+  margin: 30px 0 0;
   justify-self: start;
 `
+const SubTitle = styled.span`
+  font-family: 'Acherus Feral', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  color: #414141;
+`
 
-const OldPrice = styled.span`
+const StartPrice = styled.span`
+  font-family: 'Acherus Feral',sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 120%;
+  color: #414141;
+  margin-top: 35px;
+`
+
+const SecondPrice = styled.span`
   font-family: 'Acherus Feral',sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
   line-height: 120%;
-  text-decoration-line: line-through;
-  color: #868686;
-`
-
-const NewPrice = styled.span`
-  font-family: 'Acherus Feral',sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 120%;
   color: #414141;
+  margin-top: 10px;
 `
 
 const Popular = styled.div`
@@ -60,14 +71,13 @@ const Popular = styled.div`
 `
 
 
-function SwiperItem(visibility) {
+function SwiperItem({title, subtitle, startPrice, secondPrice}) {
     return (
         <Container>
-            <Title>Волшебник</Title>
-            <OldPrice>12222 ₽</OldPrice>
-            <OldPrice>13333 ₽</OldPrice>
-            <NewPrice>14444 ₽</NewPrice>
-            <Popular visibility={false}/>
+            <Title>{title}</Title>
+            <SubTitle>{subtitle}</SubTitle>
+            <SecondPrice>{secondPrice}</SecondPrice>
+            <StartPrice>{startPrice}</StartPrice>
         </Container>
     );
 }
