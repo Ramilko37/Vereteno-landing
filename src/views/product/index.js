@@ -10,6 +10,7 @@ import login from "../../components/Login/Login";
 import {PRODUCTS_DATA} from "../../mainApi/constants";
 import {removeDirectivesFromDocument} from "@apollo/client/utilities";
 import image from '../../static/images/loveCastle.jpg'
+import DesktopProductItem from "../../components/DesktopProduct";
 
 
 const fablesMock = [
@@ -183,36 +184,43 @@ function ProductCard() {
     const {width, height} = useWindowDimensions();
 
 
-        // React.useEffect(() => {
-        //     axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/${id}`)
-        //         // .then(res => res.data.filter(
-        //         //     item => item.id === parseInt(id)
-        //         // ))
-        //         // .then(res => console.log(res.data.filter(item => item.id === parseInt(id))))
-        //         .then(data => setFable(data.data))
-        //
-        // }, []);
+    async function getData() {
+        await axios.get(`http://newapi-env.eba-extbp2py.eu-central-1.elasticbeanstalk.com/product_types/${id}`)
+            .then(data => setFable(data.data))
+    }
+
+        React.useEffect(() => {
+
+                // .then(res => res.data.filter(
+                //     item => item.id === parseInt(id)
+                // ))
+                // .then(res => console.log(res.data.filter(item => item.id === parseInt(id))))
+            getData();
+        }, []);
 
     console.log(fable)
 
 
 
-    return (<Wrapper style={{ opacity: 1 }}>
+    return ( (window.innerWidth < 768) ? <Wrapper style={{ opacity: 1 }}>
         <CardContainer>
             <CardImage src={image}/>
         </CardContainer>
         <CardContent>
-            <ContentTitle>{fablesMock[0].title}</ContentTitle>
-            <ContentPrice>{`От ${fablesMock[0].price} P`}</ContentPrice>
-            <ContentDescription>{fablesMock[0].description}</ContentDescription>
-            <ContentDate>Старт сказки: 24.06.2022</ContentDate>
+            <ContentTitle>{fable.title}</ContentTitle>
+            <ContentPrice>{`От ${fable.product_type_info.price} P`}</ContentPrice>
+            <ContentDescription>{fable.description}</ContentDescription>
+            <ContentDate>{fable.product_type_info.startDate}</ContentDate>
             <div style={{display: "flex"}}>
                 <ContentBullet>12 глав</ContentBullet>
                 <ContentBullet>5 импринтингов</ContentBullet>
             </div>
             <Link to='/tariff'><ChooseTarifButton>Выберите тариф</ChooseTarifButton></Link>
         </CardContent>
-    </Wrapper>)
+    </Wrapper>
+    :
+            <DesktopProductItem title={fable.title} price={fable.product_type_info.price} img={fable.picture} />
+    )
 }
 
 
@@ -221,32 +229,7 @@ function ProductCard() {
 
 
 
-                        {/*:*/}
 
-                        {/*<>*/}
-                        {/*    <Swiper*/}
-                        {/*        spaceBetween={16}*/}
-                        {/*        slidesPerView={2}*/}
-                        {/*        className={styles.bigSwiperWrapper}*/}
-                        {/*        touchEventsTarget={"container"}*/}
-                        {/*        simulateTouch={true}*/}
-                        {/*        pagination={true}*/}
-                        {/*        slideToClickedSlide={true}*/}
-                        {/*        onSlideChange={() => console.log('slide change')}*/}
-                        {/*        onSwiper={(swiper) => console.log(swiper)}*/}
-                        {/*    >*/}
-                        {/*        {fable.map(item => {*/}
-                        {/*            return <SwiperSlide key={item.name} className={styles.bigSwiperSlide}>*/}
-
-
-                        {/*                <BigSwiperItem img={item.picture} title={item.title} price={item.price}/>*/}
-
-
-                        {/*            </SwiperSlide>*/}
-
-                        {/*        })}*/}
-                        {/*    </Swiper>*/}
-                        {/*</>*/}
 
 
 

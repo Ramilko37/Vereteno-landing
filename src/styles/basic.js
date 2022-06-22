@@ -14,6 +14,13 @@ body {
   
 }
 
+                           @media screen and (min-width: 640px) and (max-width: 1920px){
+                              body {
+                               width: 80%;
+                               margin: 0 auto;
+                              }
+                           }
+
 a {
     color: inherit;
     text-decoration: none;

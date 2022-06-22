@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro'
 import ProductItem from "../ProductItem";
-import BigProductItem from "../BigProductItem";
+import BigProductItem from "../DesktopProduct";
 
 
 const Container = styled.section`

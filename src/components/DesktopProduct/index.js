@@ -4,18 +4,25 @@ import styled from 'styled-components/macro';
 const ItemContainer = styled.div`
     display: flex;
     position: relative;
-    box-sizing: border-box;
     background-size: cover;
-    justify-content: center;
-    border: 1px solid red;
+    justify-content: space-between;
+    width: 753px;
+    height: 416.15px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 92px rgba(11, 21, 35, 0.15);
+    border-radius: 8px;
+    margin: 304px auto 0;
+    padding: 55px 74px;
+    box-sizing: border-box;
 `
 
 const ProductImg = styled.div`
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+  width: 274px;
+  height: 306px;
   background-image: url(${props => props.img});
   background-size: cover;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 0px 46.8877px rgba(6, 15, 33, 0.6));
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -39,13 +46,15 @@ const ProductTitle = styled.h4`
   top: 20px;
 `
 const ProductPrice = styled.span`
-  font-family: 'Acherus Feral', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 120%;
-  color: #414141;
-  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 32.2353px;
+  line-height: 100%;
+  /* or 32px */
+
+
+  color: #000000;
 `
 
 const ColumnWrapper = styled.div`
@@ -55,13 +64,7 @@ const ColumnWrapper = styled.div`
 `
 
 const Span = styled.span`
-  font-family: 'Inter';
-  font-style: italic;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  text-align: center;
-  color: #000000;
+
 `
 
 const Paragraph = styled.p`
@@ -71,16 +74,38 @@ const Paragraph = styled.p`
   font-size: 16px;
   line-height: 120%;
   color: #111D34;
+  margin-bottom: 52px;
 `
 const Button = styled.button`
   width: 274px;
   height: 46px;
   background: #CEA687;
   border-radius: 8px;
+  color: white;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100%;
 `
 
+const FlexWrapper = styled.div`
+  display: flex;
+  width: 154px;
+  justify-content: space-between; 
+  margin-top: 24px;
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 40px;
+`
 
-function BigProductItem({title, img, price, onClick}) {
+function DesktopProductItem({title, img, price, onClick}) {
     return (
         <ItemContainer onClick={onClick}>
             <ProductImg img={img}>
@@ -89,8 +114,10 @@ function BigProductItem({title, img, price, onClick}) {
 
             <ColumnWrapper>
                 <ProductPrice>{price}</ProductPrice>
-                <Span>13 глав</Span>
-                <Span>46 минут</Span>
+                <FlexWrapper>
+                    <Span>13 глав</Span>
+                    <Span>46 минут</Span>
+                </FlexWrapper>
                 <Paragraph>Вы отправляетесь в таинcтвенное путешествие, после которого вы стали замечать перемены в вашей жизни</Paragraph>
                 <Button>Купить</Button>
             </ColumnWrapper>
@@ -99,4 +126,4 @@ function BigProductItem({title, img, price, onClick}) {
     );
 }
 
-export default BigProductItem;
+export default DesktopProductItem;
