@@ -1,12 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import styles from './styles.module.css';
-import ProductItem from "../ProductItem";
 import SwiperItem from "../SwiperItem";
 import styled from "styled-components/macro";
 import {useState} from "react";
-import { useSwiperSlide } from 'swiper/react';
 import {Link} from "react-router-dom";
+import {A11y, Navigation, Pagination, Scrollbar} from "swiper";
 
 
 const SwiperPagination = styled.div`
@@ -92,93 +91,86 @@ const DescriptionSubtitle = styled.div`
 `
 
 
-const tarrifs = [
-    {
-        title: 'Философ',
-        subtitle: 'Он же волшебник в начале пути ',
-        startPrice: 'На премьере 15.555',
-        secondPrice: 'С 28 июня 17.777',
-        id: 0
-    },
+const tarifs = [
     {
         title: 'Посвященный',
         subtitle: 'Он же маг, выбирающий путь волшебной практики, имея доступ к ключам',
         startPrice: 'На премьере 15.555',
         secondPrice: 'С 28 июня 17.777',
-        id: 1
+        bullets: [
+            'Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»',
+            'Доступ ко всем основным записям',
+            '⁃ Доступ к новым аудиозаписям: Комната тени; Аудио «любой сценарий»; Динамическая медитация Комната мастеров (4 аудиозаписи); Аудио «жить, а не выживать»',
+            'Чат в телеграмме с другими сказочниками этого же тарифа', 'Доступ 1 месяц после выхода всех записей в приложении',
+            '⁃ Канал с аудио ключами к сказке от Мари (послания из реального мира)',
+            '⁃ Чат в телеграмме с другими сказочниками этого же тарифа и с хранителями-помощниками ',
+            '⁃ Доступ 3 месяца после выхода всех записей в приложении ',
+            '⁃ ZOOM созвон (мастер майнд с разборами Мари) '
+        ],
+        id: 0
     },
     {
         title: 'Мастер',
         subtitle: 'Он же волшебник 3 стадии, где чудеса это каждодневная норма, тот который уже ничего не говорит, он просто знает, чувствует, создает ',
-        startPrice: 'На премьере 33.333',
-        secondPrice: 'С 28 июня 35.555',
+        startPrice: '355.555',
+        bullets: [
+            'Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»',
+            'Доступ ко всем основным записям',
+            '⁃ Доступ к новым аудиозаписям: Комната тени; Аудио «любой сценарий»; Динамическая медитация Комната мастеров (4 аудиозаписи); Аудио «жить, а не выживать»',
+            'Чат в телеграмме с другими сказочниками этого же тарифа', 'Доступ 1 месяц после выхода всех записей в приложении',
+            '⁃ Канал с аудио ключами к сказке от Мари (послания из реального мира)',
+            '⁃ Чат в телеграмме с другими сказочниками этого же тарифа и с хранителями-помощниками ',
+            '⁃ Лекции по этикету «НЕОЭЛИТА» в записи (бессрочный доступ)',
+            '⁃ Запись созвона «ПЕРЕХОД 2.0» (бессрочный доступ) ',
+            '«МЕТОД» - 2 сезона (бессрочный доступ)'
+        ],
+        id: 1
+    },
+    {
+        title: 'Философ',
+        subtitle: 'Он же волшебник в начале пути ',
+        startPrice: 'На премьере 15.555',
+        secondPrice: 'С 28 июня 17.777',
+        bullets: ['Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»',  'Доступ ко всем основным записям', 'Чат в телеграмме с другими сказочниками этого же тарифа', 'Доступ 1 месяц после выхода всех записей в приложении'],
         id: 2
     },
-];
-
-const bulletsPhilosoph = ['Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»', 'Доступ ко всем основным записям',
-    'Чат в телеграмме с другими сказочниками этого же тарифа', 'Доступ 1 месяц после выхода всех записей в приложении'];
-
-const bulletsRookie = [' ⁃ Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»',
-                        '⁃ Доступ ко всем основным записям',
-                        '⁃ Доступ к новым аудиозаписям: Комната тени; Аудио «любой сценарий»; Динамическая медитация ; Комната мастеров (4 аудиозаписи); Аудио «жить, а не выживать»',
-                        '⁃ Канал с аудио ключами к сказке от Мари (послания из реального мира)',
-                        '⁃ Чат в телеграмме с другими сказочниками этого же тарифа и с хранителями-помощниками ',
-                        ' ⁃ Доступ 3 месяца после выхода всех записей в приложении ',
-                        ' ⁃ ZOOM созвон (мастер майнд с разборами Мари)'
-];
-
-const bulletsMaster = [' ⁃ Доступ в приложении VERETENO к сказке «ЗАМОК ЛЮБВИ»',
-    '⁃ Доступ ко всем основным записям',
-    '⁃ Доступ к новым аудиозаписям: Комната тени; Аудио «любой сценарий»; Динамическая медитация ; Комната мастеров (4 аудиозаписи); Аудио «жить, а не выживать»',
-    '⁃ Канал с аудио ключами к сказке от Мари (послания из реального мира)',
-    '⁃ Чат в телеграмме с другими сказочниками этого же тарифа и с хранителями-помощниками ',
-    ' ⁃ Доступ 8 месяцев после выхода всех записей в приложении ',
-    ' ⁃ 3 ZOOM созвона (мастер майнда с разборами Мари) ',
-    '⁃ Лекции по этикету «НЕОЭЛИТА» в записи (бессрочный доступ) ',
-    ' ⁃ Запись созвано «ПЕРЕХОД 2.0» (бессрочный доступ)  ',
-    ' ⁃ «МЕТОД» - 2 сезона (бессрочный доступ)'
 ];
 
 export const SwiperContainer = (visibility) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
-    const swiperSlide = useSwiperSlide();
 
-    console.log(swiperSlide)
 
     return (
         <div className={styles.swiperContainer}>
 
         <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={16}
-            slidesPerView={"auto"}
+            slidesPerView={'auto'}
             className={styles.swiperWrapper}
             touchEventsTarget={"container"}
             simulateTouch={true}
-            pagination={true}
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
             slideToClickedSlide={true}
+            loop={true}
             onSlideChange={(swiper) => {
-                console.log(swiper.activeIndex);
-                setActiveSlide(swiper.activeIndex)
+                setActiveSlide(() => (swiper.realIndex));
             }}
-            onSwiper={(swiper) => console.log(swiper.activeIndex)}
-
-
             breakpoints={{
-                // when window width is >= 640px
-                // 389: {
-                //     width: 374,
-                //     slidesPerView: 2,
-                // },
-                // // when window width is >= 768px
-                // 768: {
-                //     width: 768,
-                //     slidesPerView: 3,
-                // },
+                389: {
+                    width: 374,
+                    slidesPerView: 2,
+                },
+                // when window width is >= 768px
+                768: {
+                    width: 768,
+                    slidesPerView: 4,
+                },
             }}
         >
-            {tarrifs.map(tariff => {
+            {tarifs.map(tariff => {
                 return <SwiperSlide key={tariff.title} className={styles.swiperSlide}>
 
                     <SwiperItem
@@ -194,11 +186,11 @@ export const SwiperContainer = (visibility) => {
         </Swiper>
             <Description>
                 <DescriptionTitle>Описание тарифа</DescriptionTitle>
-                <DescriptionSubtitle>{tarrifs[activeSlide].subtitle}</DescriptionSubtitle>
+                <DescriptionSubtitle>{tarifs[activeSlide].subtitle}</DescriptionSubtitle>
                 <List>
-                    {activeSlide === 0 ? bulletsPhilosoph : bulletsRookie.map(bullet => {
-                        return(<ListItem>{bullet}</ListItem>)
-                    })}
+                    {tarifs[activeSlide].bullets.map(item =>
+                        <ListItem>{item}</ListItem>
+                    )}
                 </List>
             </Description>
             <ButtonWrapper>
